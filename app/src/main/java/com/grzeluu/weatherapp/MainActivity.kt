@@ -53,6 +53,15 @@ class MainActivity : AppCompatActivity() {
             val latitude = mLastLocation.latitude
             val longitude = mLastLocation.longitude
             Log.i("[lat, lon] ", "[$latitude, $longitude]")
+            getLocationWeatherDetails()
+        }
+    }
+
+    private fun getLocationWeatherDetails() {
+        if(Constants.isNetworkAvailable(this)) {
+            showMessage("You have connected to the internet")
+        } else {
+            showMessage("No internet connection available")
         }
     }
 
