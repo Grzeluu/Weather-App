@@ -26,8 +26,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="API_KEY"
-            android:value="@string/openweather_api_key"/>
     </application>
 </manifest>
