@@ -2,6 +2,7 @@ package com.grzeluu.weatherapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.location.*
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
+import com.grzeluu.weatherapp.databinding.DialogProgressBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.network.WeatherService
 import com.karumi.dexter.Dexter
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private var mProgressDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,9 +72,12 @@ class MainActivity : AppCompatActivity() {
                 .build()
 
             val service: WeatherService = retrofit.create(WeatherService::class.java)
+
             val listCall: Call<WeatherResponse> = service.getWeather(
                 latitude, longitude, Constants.METRIC_UNIT, Constants.APP_ID
             )
+
+            showProgress()
             listCall.enqueue(object : Callback<WeatherResponse> {
                 override fun onResponse(
                     call: Call<WeatherResponse>,
@@ -87,10 +93,12 @@ class MainActivity : AppCompatActivity() {
                             else -> Log.e("Error", "Generic Error")
                         }
                     }
+                    hideProgress()
                 }
 
                 override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
                     Log.e("Error", t.message.toString())
+                    hideProgress()
                 }
             })
 
@@ -156,16 +164,27 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
 
     private fun showMessage(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT)
             .show()
     }
 
-    private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager =
-            getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    private fun showProgress() {
+        mProgressDialog = Dialog(this)
+        mProgressDialog!!.setContentView(R.layout.dialog_progress)
+        mProgressDialog!!.show()
+    }
+
+    private fun hideProgress() {
+        if (mProgressDialog != null) {
+            mProgressDialog!!.dismiss()
+        }
     }
 }
