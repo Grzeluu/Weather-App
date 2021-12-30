@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/sun_wireless_outline.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/water_percent.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_lightning_rainy.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_sunny.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.3614583333333333" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/dialog_progress.xml" value="0.37552083333333336" />
       </map>
