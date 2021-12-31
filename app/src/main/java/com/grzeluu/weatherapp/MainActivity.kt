@@ -9,6 +9,7 @@ import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val weatherList: WeatherResponse = response.body()!!
                         Log.i("Response Result", "$weatherList")
+                        setUp(weatherList)
                     } else {
                         when (response.code()) {
                             400 -> Log.e("Error 400", "Bad Connection")
@@ -107,6 +109,25 @@ class MainActivity : AppCompatActivity() {
         } else {
             showMessage("No internet connection available")
         }
+    }
+
+    private fun setUp(weatherList: WeatherResponse) {
+        for (i in weatherList.weather.indices) {
+            binding.tvCurrentWeather.text = weatherList.weather[i].main
+            binding.tvCurrentWeatherDescription.text = weatherList.weather[i].description
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                binding.tvTemperature.text = weatherList.main.temp.toString() +
+                        getUnit(application.resources.configuration.locales.toString())
+            }
+        }
+    }
+
+    private fun getUnit(value: String): String {
+        var unit = "°C"
+        if (value == "US" || value == "LR" || "MM" == value) {
+            unit = "°F"
+        }
+        return unit
     }
 
     @SuppressLint("MissingPermission")

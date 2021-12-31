@@ -10,7 +10,7 @@
     <dimen name="card_view_corner_radius">8dp</dimen>
     <dimen name="card_view_elevation">5dp</dimen>
     <dimen name="card_view_content_paddingVertical">15dp</dimen>
-    <dimen name="card_view_content_paddingHorizontal">18dp</dimen>
+    <dimen name="card_view_content_paddingHorizontal">25dp</dimen>
 
     <dimen name="big_icon_size">50dp</dimen>
     <dimen name="medium_icon_size">50dp</dimen>

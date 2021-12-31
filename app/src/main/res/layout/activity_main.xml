@@ -30,7 +30,7 @@
                 app:titleTextColor="@color/white" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/iv_location"
                 android:layout_width="@dimen/toolbar_icon_size"
                 android:layout_height="@dimen/toolbar_icon_size"
                 android:background="@drawable/ic_location"
@@ -49,7 +49,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/toolbar_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/iv_location"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -74,6 +74,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
@@ -102,6 +103,7 @@
                 android:textSize="@dimen/value_text_size" />
 
             <TextView
+                android:id="@+id/tv_current_weather_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Light air" />
@@ -114,11 +116,13 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/iv_feels_like"
             android:layout_width="@dimen/small_icon_size"
             android:layout_height="@dimen/small_icon_size"
             android:background="@drawable/ic_temperature" />
 
         <TextView
+            android:id="@+id/tv_feels_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Feels like 24°C"
@@ -126,7 +130,7 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/card_view_marginStartEnd"
         android:layout_marginTop="@dimen/card_view_marginTop"
@@ -153,12 +157,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_wind"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"
                         android:layout_marginEnd="@dimen/id_image_marginEnd"
                         android:background="@drawable/ic_wind" />
 
                     <TextView
+                        android:id="@+id/tv_wind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Wind: 24 km/h NW"
@@ -173,12 +179,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_humidity"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"
                         android:layout_marginEnd="@dimen/id_image_marginEnd"
                         android:background="@drawable/ic_humidity" />
 
                     <TextView
+                        android:id="@+id/tv_humidity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Humidity: 20%"
@@ -193,12 +201,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/im_pressure"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"
                         android:layout_marginEnd="@dimen/id_image_marginEnd"
                         android:background="@drawable/ic_pressure" />
 
                     <TextView
+                        android:id="@+id/tv_pressure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pressure: 1000 hPa"
@@ -220,12 +230,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_sunrise"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"
                         android:layout_marginEnd="@dimen/id_image_marginEnd"
                         android:background="@drawable/ic_sunrise" />
 
                     <TextView
+                        android:id="@+id/tv_sunrise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="6:12"
@@ -240,12 +252,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_sunset"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"
                         android:layout_marginEnd="@dimen/id_image_marginEnd"
                         android:background="@drawable/ic_sunset" />
 
                     <TextView
+                        android:id="@+id/tv_sunset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20:35"
