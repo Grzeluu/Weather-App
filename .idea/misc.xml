@@ -3,10 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/arrow_down_bold_outline.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/close_box_outline.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_close.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_cloud.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_humidity.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_location.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_night.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_search.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_snow.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_storm.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_sun.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_sunrise.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_sunset.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_temperature.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_wind.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/map_marker_outline.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/sun_wireless_outline.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/thermometer_low.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/water_percent.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_cloudy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_lightning_rainy.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_night.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_snowy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_sunny.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_sunset_down.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_sunset_up.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_windy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.3614583333333333" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/dialog_progress.xml" value="0.37552083333333336" />
       </map>
