@@ -86,7 +86,7 @@
             android:layout_width="@dimen/medium_icon_size"
             android:layout_height="@dimen/big_icon_size"
             android:layout_marginStart="@dimen/common_marginStartEnd"
-            android:background="@drawable/ic_rain"
+            android:layout_marginEnd="@dimen/id_image_marginEnd"
             android:contentDescription="@string/current_weather" />
 
         <LinearLayout

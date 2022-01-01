@@ -12,8 +12,8 @@
     <dimen name="card_view_content_paddingVertical">15dp</dimen>
     <dimen name="card_view_content_paddingHorizontal">25dp</dimen>
 
-    <dimen name="big_icon_size">50dp</dimen>
-    <dimen name="medium_icon_size">50dp</dimen>
+    <dimen name="big_icon_size">60dp</dimen>
+    <dimen name="medium_icon_size">60dp</dimen>
     <dimen name="id_image_marginEnd">10dp</dimen>
 
     <dimen name="label_text_size">13sp</dimen>

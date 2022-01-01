@@ -132,14 +132,27 @@ class MainActivity : AppCompatActivity() {
                     getTemperatureUnit()
                 )
 
-            binding.tvWind.text = "Dupa później zrobię"
+            binding.tvWind.text = getString(R.string.wind, weatherList.wind.speed)
             binding.tvHumidity.text = getString(R.string.humidity, weatherList.main.humidity)
             binding.tvPressure.text = getString(R.string.pressure, weatherList.main.pressure)
 
             binding.tvSunrise.text = unixTime(weatherList.sys.sunrise)
             binding.tvSunset.text = unixTime(weatherList.sys.sunset)
 
-            binding.tvWind.text = getString(R.string.wind, weatherList.wind.speed)
+            when (weatherList.weather[i].icon) {
+                "01d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky)
+                "01n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky_night)
+
+                "02d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_cloudy)
+                "02n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_night_partly_cloudy)
+
+                "03d", "04d", "03n", "04n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_cloudy)
+                "09d", "09n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_rainy)
+                "10d", "10n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_rainy)
+                "11d", "11n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_thunderstorm)
+                "13d", "13n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_snow)
+                "50d", "50n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_fog)
+            }
         }
     }
 
