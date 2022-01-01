@@ -9,7 +9,6 @@ import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -19,7 +18,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.location.*
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
-import com.grzeluu.weatherapp.databinding.DialogProgressBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.network.WeatherService
 import com.karumi.dexter.Dexter
@@ -29,6 +27,8 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -113,14 +113,37 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUp(weatherList: WeatherResponse) {
         for (i in weatherList.weather.indices) {
+            binding.tvCurrentLocation.text = weatherList.name
+
             binding.tvCurrentWeather.text = weatherList.weather[i].main
-            binding.tvCurrentWeatherDescription.text = weatherList.weather[i].description
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                binding.tvTemperature.text = weatherList.main.temp.toString() +
-                        getUnit(application.resources.configuration.locales.toString())
-            }
+            var description = weatherList.weather[i].description
+            description = description.substring(0, 1).uppercase() + description.substring(1)
+            binding.tvCurrentWeatherDescription.text = description
+            binding.tvTemperature.text =
+                getString(
+                    R.string.temperature,
+                    weatherList.main.temp.toInt(),
+                    getTemperatureUnit()
+                )
+            binding.tvFeelsLike.text =
+                getString(
+                    R.string.feels_like,
+                    weatherList.main.feels_like.toInt(),
+                    getTemperatureUnit()
+                )
+
+            binding.tvWind.text = "Dupa później zrobię"
+            binding.tvHumidity.text = getString(R.string.humidity, weatherList.main.humidity)
+            binding.tvPressure.text = getString(R.string.pressure, weatherList.main.pressure)
+
+            binding.tvSunrise.text = unixTime(weatherList.sys.sunrise)
+            binding.tvSunset.text = unixTime(weatherList.sys.sunset)
+
+            binding.tvWind.text = getString(R.string.wind, weatherList.wind.speed)
         }
     }
+
+    private fun getTemperatureUnit() = getUnit(application.resources.configuration.toString())
 
     private fun getUnit(value: String): String {
         var unit = "°C"
@@ -192,6 +215,13 @@ class MainActivity : AppCompatActivity() {
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun unixTime(timestamp: Long): String? {
+        val date = Date(timestamp * 1000L)
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.UK)
+        dateFormat.timeZone = TimeZone.getDefault()
+        return dateFormat.format(date)
     }
 
     private fun showMessage(text: String) {

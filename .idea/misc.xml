@@ -12,6 +12,7 @@
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_location.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_night.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_pressure.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_search.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_snow.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_storm.xml" value="0.39166666666666666" />
@@ -27,6 +28,7 @@
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_cloudy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_lightning_rainy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_night.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_rainy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_snowy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_sunny.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_sunset_down.xml" value="0.39166666666666666" />
