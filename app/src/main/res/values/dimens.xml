@@ -6,25 +6,25 @@
     <dimen name="main_screen_content_padding">16dp</dimen>
 
     <dimen name="card_view_marginStartEnd">20dp</dimen>
-    <dimen name="card_view_marginTop">16dp</dimen>
+    <dimen name="card_view_marginTop">24dp</dimen>
     <dimen name="card_view_corner_radius">8dp</dimen>
     <dimen name="card_view_elevation">5dp</dimen>
     <dimen name="card_view_content_paddingVertical">15dp</dimen>
     <dimen name="card_view_content_paddingHorizontal">25dp</dimen>
 
-    <dimen name="big_icon_size">60dp</dimen>
-    <dimen name="medium_icon_size">60dp</dimen>
+    <dimen name="big_icon_size">50dp</dimen>
+    <dimen name="medium_icon_size">40dp</dimen>
     <dimen name="id_image_marginEnd">10dp</dimen>
 
     <dimen name="label_text_size">13sp</dimen>
     <dimen name="value_text_size">16sp</dimen>
 
-    <dimen name="common_marginStartEnd">20dp</dimen>
+    <dimen name="common_marginStartEnd">24dp</dimen>
 
     <dimen name="divider_height">1dp</dimen>
-    <dimen name="divider_margin">16dp</dimen>
+    <dimen name="divider_margin">26dp</dimen>
 
-    <dimen name="big_text_size">65sp</dimen>
+    <dimen name="big_text_size">70sp</dimen>
     <dimen name="small_icon_size">20dp</dimen>
     <dimen name="pressure_icon_size">15dp</dimen>
     <dimen name="small_text_size">14sp</dimen>

@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
@@ -17,6 +18,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.location.*
+import com.google.gson.Gson
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.network.WeatherService
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private var mProgressDialog: Dialog? = null
+    private lateinit var mSharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        mSharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        setUpInterface()
 
         if (!isLocationEnabled()) {
             showMessage("Your location provider is turned OFF. Please turn it ON")
@@ -56,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             checkLocationPermission()
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -91,8 +98,13 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val weatherList: WeatherResponse = response.body()!!
+                        val weatherResponseJson = Gson().toJson(weatherList)
+                        val editor = mSharedPreferences.edit()
+                        editor.putString(Constants.WEATHER_RESPONSE_DATA, weatherResponseJson)
+                        editor.apply()
+
+                        setUpInterface()
                         Log.i("Response Result", "$weatherList")
-                        setUp(weatherList)
                     } else {
                         when (response.code()) {
                             400 -> Log.e("Error 400", "Bad Connection")
@@ -113,47 +125,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUp(weatherList: WeatherResponse) {
-        for (i in weatherList.weather.indices) {
-            binding.tvCurrentLocation.text = weatherList.name
+    private fun setUpInterface() {
+        val weatherResponseJson = mSharedPreferences.getString(Constants.WEATHER_RESPONSE_DATA, "")
 
-            binding.tvCurrentWeather.text = weatherList.weather[i].main
-            var description = weatherList.weather[i].description
-            description = description.substring(0, 1).uppercase() + description.substring(1)
-            binding.tvCurrentWeatherDescription.text = description
-            binding.tvTemperature.text =
-                getString(
-                    R.string.temperature,
-                    weatherList.main.temp.toInt(),
-                    getTemperatureUnit()
-                )
-            binding.tvFeelsLike.text =
-                getString(
-                    R.string.feels_like,
-                    weatherList.main.feels_like.toInt(),
-                    getTemperatureUnit()
-                )
+        if(!weatherResponseJson.isNullOrEmpty()){
+            val weatherList = Gson().fromJson(weatherResponseJson, WeatherResponse::class.java)
 
-            binding.tvWind.text = getString(R.string.wind, weatherList.wind.speed)
-            binding.tvHumidity.text = getString(R.string.humidity, weatherList.main.humidity)
-            binding.tvPressure.text = getString(R.string.pressure, weatherList.main.pressure)
+            for (i in weatherList.weather.indices) {
+                binding.tvCurrentLocation.text = weatherList.name
 
-            binding.tvSunrise.text = unixTime(weatherList.sys.sunrise)
-            binding.tvSunset.text = unixTime(weatherList.sys.sunset)
+                binding.tvCurrentWeather.text = weatherList.weather[i].main
+                var description = weatherList.weather[i].description
+                description = description.substring(0, 1).uppercase() + description.substring(1)
+                binding.tvCurrentWeatherDescription.text = description
+                binding.tvTemperature.text =
+                    getString(
+                        R.string.temperature,
+                        weatherList.main.temp.toInt(),
+                        getTemperatureUnit()
+                    )
+                binding.tvFeelsLike.text =
+                    getString(
+                        R.string.feels_like,
+                        weatherList.main.feels_like.toInt(),
+                        getTemperatureUnit()
+                    )
 
-            when (weatherList.weather[i].icon) {
-                "01d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky)
-                "01n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky_night)
+                binding.tvWind.text = getString(R.string.wind, weatherList.wind.speed)
+                binding.tvHumidity.text = getString(R.string.humidity, weatherList.main.humidity)
+                binding.tvPressure.text = getString(R.string.pressure, weatherList.main.pressure)
 
-                "02d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_cloudy)
-                "02n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_night_partly_cloudy)
+                binding.tvSunrise.text = unixTime(weatherList.sys.sunrise)
+                binding.tvSunset.text = unixTime(weatherList.sys.sunset)
 
-                "03d", "04d", "03n", "04n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_cloudy)
-                "09d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_rainy)
-                "10d", "10n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_rainy)
-                "11d", "11n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_thunderstorm)
-                "13d", "13n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_snow)
-                "50d", "50n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_fog)
+                when (weatherList.weather[i].icon) {
+                    "01d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky)
+                    "01n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky_night)
+
+                    "02d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_cloudy)
+                    "02n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_night_partly_cloudy)
+
+                    "03d", "04d", "03n", "04n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_cloudy)
+                    "09d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_rainy)
+                    "10d", "10n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_rainy)
+                    "11d", "11n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_thunderstorm)
+                    "13d", "13n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_snow)
+                    "50d", "50n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_fog)
+                }
             }
         }
     }
