@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
@@ -52,10 +51,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         } else {
-            showMessage("Your location provider is turned ON")
+            checkLocationPermission()
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
             checkLocationPermission()
         }
     }
+
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
@@ -97,15 +100,14 @@ class MainActivity : AppCompatActivity() {
                             else -> Log.e("Error", "Generic Error")
                         }
                     }
+                    binding.swipeRefreshLayout.isRefreshing = false
                     hideProgress()
                 }
-
                 override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
                     Log.e("Error", t.message.toString())
                     hideProgress()
                 }
             })
-
         } else {
             showMessage("No internet connection available")
         }
@@ -147,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                 "02n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_night_partly_cloudy)
 
                 "03d", "04d", "03n", "04n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_cloudy)
-                "09d", "09n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_rainy)
+                "09d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_partly_rainy)
                 "10d", "10n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_rainy)
                 "11d", "11n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_thunderstorm)
                 "13d", "13n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_snow)
@@ -168,7 +170,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun requestLocationData() {
-        val mLocationRequest = LocationRequest()
+        val mLocationRequest = LocationRequest.create()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         mFusedLocationProviderClient.requestLocationUpdates(
