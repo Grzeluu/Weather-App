@@ -5,11 +5,11 @@
 
     <dimen name="main_screen_content_padding">16dp</dimen>
 
-    <dimen name="card_view_marginStartEnd">20dp</dimen>
+    <dimen name="card_view_marginStartEnd">16dp</dimen>
     <dimen name="card_view_marginTop">24dp</dimen>
     <dimen name="card_view_corner_radius">8dp</dimen>
     <dimen name="card_view_elevation">5dp</dimen>
-    <dimen name="card_view_content_paddingVertical">15dp</dimen>
+    <dimen name="card_view_content_paddingVertical">6dp</dimen>
     <dimen name="card_view_content_paddingHorizontal">25dp</dimen>
 
     <dimen name="big_icon_size">50dp</dimen>

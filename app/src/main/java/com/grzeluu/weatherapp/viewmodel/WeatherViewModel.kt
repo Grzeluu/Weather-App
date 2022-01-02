@@ -2,6 +2,7 @@ package com.grzeluu.weatherapp.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.network.ApiConstants
@@ -22,12 +23,11 @@ class WeatherViewModel(
 
     fun getLocationData() = locationData
 
-    @SuppressLint("MissingPermission")
     fun getWeatherLocationData(
         latitude: Double,
         longitude: Double
     ): LiveData<MyResult<WeatherResponse>> {
-
+        Log.i("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "")
         return appRepository.getWeather(
             latitude,
             longitude,
