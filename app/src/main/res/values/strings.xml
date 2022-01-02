@@ -9,4 +9,8 @@
     <string name="pressure">Pressure: %1$d hPa</string>
     <string name="wind">Wind: %1$.1f m/s</string>
 
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="network_failure">Network Failure</string>
+    <string name="conversion_error">Conversion Error</string>
+
 </resources>
