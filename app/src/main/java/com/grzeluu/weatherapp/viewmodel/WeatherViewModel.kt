@@ -2,33 +2,31 @@ package com.grzeluu.weatherapp.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.location.Location
-import android.os.Looper
 import androidx.lifecycle.AndroidViewModel
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.network.ApiConstants
 import com.grzeluu.weatherapp.repository.AppRepository
 import com.grzeluu.weatherapp.util.MyResult
 import androidx.lifecycle.LiveData
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationResult
 
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.grzeluu.weatherapp.app.MyApplication
-
+import com.grzeluu.weatherapp.repository.LocationLiveData
 
 class WeatherViewModel(
-    app: Application,
+    application: Application,
     val appRepository: AppRepository,
-) : AndroidViewModel(app) {
+) : AndroidViewModel(application) {
+
+    private val locationData = LocationLiveData(application)
+
+    fun refreshWeather() = locationData.refresh()
+
+    fun getLocationData() = locationData
 
     @SuppressLint("MissingPermission")
-    fun getWeatherLocationData(): LiveData<MyResult<WeatherResponse>> {
-        var longitude = 0.0
-        var latitude = 0.0
-
-        //TODO get current location
+    fun getWeatherLocationData(
+        latitude: Double,
+        longitude: Double
+    ): LiveData<MyResult<WeatherResponse>> {
 
         return appRepository.getWeather(
             latitude,

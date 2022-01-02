@@ -35,10 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
-
         binding.swipeRefreshLayout.setOnRefreshListener {
-            getWeather()
-            binding.swipeRefreshLayout.isRefreshing = false
+            viewModel.refreshWeather()
         }
     }
 
@@ -51,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(application, repository)
         viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
+        viewModel.refreshWeather()
     }
 
      private fun setUpInterface(weatherList: WeatherResponse) {
@@ -119,25 +118,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getWeather() {
-        viewModel.getWeatherLocationData().observe(this, Observer { response ->
-            when (response) {
-                is MyResult.Success -> {
-                    hideProgress()
-                    setUpInterface(response.data!!)
-                }
+        viewModel.getLocationData().observe(this, Observer { location ->
+            viewModel.getWeatherLocationData(location.latitude, location.longitude).observe(this, Observer { response ->
+                when (response) {
+                    is MyResult.Success -> {
+                        hideProgress()
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        setUpInterface(response.data!!)
+                    }
 
-                is MyResult.Error -> {
-                    hideProgress()
-                    response.message?.let { message ->
+                    is MyResult.Error -> {
+                        hideProgress()
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        response.message?.let { message ->
+                            showMessage(message)
+                        }
+                    }
 
-                        showMessage(message)
+                    is MyResult.Loading -> {
+                        //showProgress()
                     }
                 }
-
-                is MyResult.Loading -> {
-                    showProgress()
-                }
-            }
+            })
         })
     }
 
