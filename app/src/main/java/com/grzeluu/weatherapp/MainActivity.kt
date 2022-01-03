@@ -47,43 +47,37 @@ class MainActivity : AppCompatActivity() {
         prepWeatherUpdate()
     }
 
-    private fun setUpViewModel() {
-        val repository = AppRepository()
-        val factory = ViewModelProviderFactory(application, repository)
-        viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
-        viewModel.refreshWeather()
-    }
+    private fun setUpInterface(weatherList: WeatherResponse) {
+        val current = weatherList.current
+        for (i in current.weather.indices) {
 
-    /*private fun setUpInterface(weatherList: WeatherResponse) {
+            binding.tvCurrentWeather.text = current.weather[i].main
 
-        for (i in weatherList.current.indices) {
-            binding.tvCurrentLocation.text = weatherList.name
-
-            binding.tvCurrentWeather.text = weatherList.current[i].main
-            var description = weatherList.current[i].description
+            var description = current.weather[i].description
             description = description.substring(0, 1).uppercase() + description.substring(1)
             binding.tvCurrentWeatherDescription.text = description
+
             binding.tvTemperature.text =
                 getString(
                     R.string.temperature,
-                    weatherList.main.temp.toInt(),
+                    current.temp.toInt(),
                     getTemperatureUnit()
                 )
             binding.tvFeelsLike.text =
                 getString(
                     R.string.feels_like,
-                    weatherList.main.feels_like.toInt(),
+                    current.feels_like.toInt(),
                     getTemperatureUnit()
                 )
 
-            binding.tvWind.text = getString(R.string.wind, weatherList.wind.speed)
-            binding.tvHumidity.text = getString(R.string.humidity, weatherList.main.humidity)
-            binding.tvPressure.text = getString(R.string.pressure, weatherList.main.pressure)
+            binding.tvWind.text = getString(R.string.wind, current.wind_speed)
+            binding.tvHumidity.text = getString(R.string.humidity, current.humidity)
+            binding.tvPressure.text = getString(R.string.pressure, current.pressure)
 
-            binding.tvSunrise.text = unixTime(weatherList.sys.sunrise)
-            binding.tvSunset.text = unixTime(weatherList.sys.sunset)
+            binding.tvSunrise.text = unixTime(current.sunrise)
+            binding.tvSunset.text = unixTime(current.sunset)
 
-            when (weatherList.current[i].icon) {
+            when (weatherList.current.weather[i].icon) {
                 "01d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky)
                 "01n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky_night)
 
@@ -98,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 "50d", "50n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_fog)
             }
         }
-    }*/
+    }
 
     private fun getTemperatureUnit() = getUnit(application.resources.configuration.toString())
 
@@ -114,23 +108,49 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(
                 baseContext!!,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
-            getWeather()
-        } else {
             val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestPermissions(permissionRequest, Constants.LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
+            getWeather()
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            Constants.LOCATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    prepWeatherUpdate()
+                } else {
+                    showMessage("Unable to update location without permission")
+                }
+            }
+            else -> {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            }
+        }
+    }
+
+    private fun setUpViewModel() {
+        val repository = AppRepository()
+        val factory = ViewModelProviderFactory(application, repository)
+        viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
+        viewModel.refreshWeather()
     }
 
     private fun getWeather() {
         viewModel.getLocationData().observe(this, { location ->
-           viewModel.getWeatherLocationData(location.latitude, location.longitude).observe(this,
+            viewModel.getWeatherLocationData(location.latitude, location.longitude).observe(this,
                 { response ->
                     when (response) {
                         is MyResult.Success -> {
                             binding.swipeRefreshLayout.isRefreshing = false
-                            //setUpInterface(response.data!!)
+                            setUpInterface(response.data!!)
                         }
 
                         is MyResult.Error -> {
@@ -144,25 +164,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
         })
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            Constants.LOCATION_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getWeather()
-                } else {
-                    showMessage("Unable to update location without permission")
-                }
-            }
-            else -> {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            }
-        }
     }
 
     private fun unixTime(timestamp: Long): String? {
