@@ -1,4 +1,4 @@
-package com.grzeluu.weatherapp
+package com.grzeluu.weatherapp.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -6,9 +6,11 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.repository.AppRepository
@@ -113,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestPermissions(permissionRequest, Constants.LOCATION_PERMISSION_REQUEST_CODE)
         } else {
-            getWeather()
+            getLocationWeather()
         }
     }
 
@@ -143,38 +145,41 @@ class MainActivity : AppCompatActivity() {
         viewModel.refreshWeather()
     }
 
-    private fun getWeather() {
-        viewModel.getLocationData().observe(this, { location ->
-            viewModel.getWeatherLocationData(location.latitude, location.longitude).observe(this,
-                { response ->
-                    when (response) {
-                        is MyResult.Success -> {
-                            binding.swipeRefreshLayout.isRefreshing = false
-                            setUpInterface(response.data!!)
-                        }
-
-                        is MyResult.Error -> {
-                            binding.swipeRefreshLayout.isRefreshing = false
-                            response.message?.let { message ->
-                                showMessage(message)
-                            }
-                        }
-
-                        is MyResult.Loading -> {}
-                    }
-                })
+    private fun getLocationWeather() {
+        viewModel.locationData.observe(this, { location ->
+            viewModel.getWeather(location.latitude, location.longitude)
         })
+
+        viewModel.weatherData.observe(this,
+            { response ->
+                Log.i("Change", "Weather data has changed")
+                when (response) {
+                    is MyResult.Success -> {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        setUpInterface(response.data!!)
+                    }
+
+                    is MyResult.Error -> {
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        response.message?.let { message ->
+                            showMessage(message)
+                        }
+                    }
+
+                    is MyResult.Loading -> {}
+                }
+            })
     }
 
-    private fun unixTime(timestamp: Long): String? {
-        val date = Date(timestamp * 1000L)
-        val dateFormat = SimpleDateFormat("HH:mm", Locale.UK)
-        dateFormat.timeZone = TimeZone.getDefault()
-        return dateFormat.format(date)
-    }
+private fun unixTime(timestamp: Long): String? {
+    val date = Date(timestamp * 1000L)
+    val dateFormat = SimpleDateFormat("HH:mm", Locale.UK)
+    dateFormat.timeZone = TimeZone.getDefault()
+    return dateFormat.format(date)
+}
 
-    private fun showMessage(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT)
-            .show()
-    }
+private fun showMessage(text: String) {
+    Toast.makeText(this, text, Toast.LENGTH_SHORT)
+        .show()
+}
 }

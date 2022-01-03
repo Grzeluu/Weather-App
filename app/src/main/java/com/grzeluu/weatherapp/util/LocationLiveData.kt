@@ -1,9 +1,10 @@
-package com.grzeluu.weatherapp.repository
+package com.grzeluu.weatherapp.util
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -21,7 +22,7 @@ class LocationLiveData(context:Context): LiveData<LocationModel>() {
     }
 
     @SuppressLint("MissingPermission")
-    fun refresh() {
+    fun locationUpdate() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 location?.also {
@@ -54,6 +55,7 @@ class LocationLiveData(context:Context): LiveData<LocationModel>() {
     }
 
     private fun setLocationData(location: Location) {
+        Log.i("LocationData", location.toString())
         value = LocationModel(
             longitude = location.longitude,
             latitude = location.latitude
