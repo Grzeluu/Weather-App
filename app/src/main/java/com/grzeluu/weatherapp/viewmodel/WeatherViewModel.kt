@@ -27,12 +27,12 @@ class WeatherViewModel(
         latitude: Double,
         longitude: Double
     ): LiveData<MyResult<WeatherResponse>> {
-        Log.i("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "")
         return appRepository.getWeather(
             latitude,
             longitude,
             ApiConstants.METRIC_UNIT,
-            ApiConstants.APP_ID
+            ApiConstants.APP_ID,
+            ApiConstants.EXCLUDE
         )
     }
 }

@@ -16,13 +16,13 @@ class AppRepository {
 
     fun getWeather(
         latitude: Double, longitude: Double,
-        unit: String, appid: String
+        unit: String, appid: String, exclude:String
     ): LiveData<MyResult<WeatherResponse>> {
 
         val liveData = MutableLiveData<MyResult<WeatherResponse>>()
         liveData.postValue(MyResult.Loading())
 
-        client.getWeather(latitude, longitude, unit, appid)
+        client.getWeather(latitude, longitude, unit, appid, exclude)
             .enqueue(object : Callback<WeatherResponse> {
                 override fun onResponse(
                     call: Call<WeatherResponse>,
@@ -35,6 +35,7 @@ class AppRepository {
                 }
 
                 override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                    Log.e("Error", t.message.toString())
                     liveData.postValue(MyResult.Error(t.message.toString()))
                 }
             })

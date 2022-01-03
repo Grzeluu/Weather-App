@@ -54,13 +54,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.refreshWeather()
     }
 
-    private fun setUpInterface(weatherList: WeatherResponse) {
+    /*private fun setUpInterface(weatherList: WeatherResponse) {
 
-        for (i in weatherList.weather.indices) {
+        for (i in weatherList.current.indices) {
             binding.tvCurrentLocation.text = weatherList.name
 
-            binding.tvCurrentWeather.text = weatherList.weather[i].main
-            var description = weatherList.weather[i].description
+            binding.tvCurrentWeather.text = weatherList.current[i].main
+            var description = weatherList.current[i].description
             description = description.substring(0, 1).uppercase() + description.substring(1)
             binding.tvCurrentWeatherDescription.text = description
             binding.tvTemperature.text =
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             binding.tvSunrise.text = unixTime(weatherList.sys.sunrise)
             binding.tvSunset.text = unixTime(weatherList.sys.sunset)
 
-            when (weatherList.weather[i].icon) {
+            when (weatherList.current[i].icon) {
                 "01d" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky)
                 "01n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_clear_sky_night)
 
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 "50d", "50n" -> binding.ivCurrentWeather.setImageResource(R.drawable.ic_fog)
             }
         }
-    }
+    }*/
 
     private fun getTemperatureUnit() = getUnit(application.resources.configuration.toString())
 
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                     when (response) {
                         is MyResult.Success -> {
                             binding.swipeRefreshLayout.isRefreshing = false
-                            setUpInterface(response.data!!)
+                            //setUpInterface(response.data!!)
                         }
 
                         is MyResult.Error -> {
