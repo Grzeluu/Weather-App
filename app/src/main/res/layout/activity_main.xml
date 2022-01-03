@@ -305,6 +305,14 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hourly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                />
+
             <View
                 android:id="@+id/line"
                 android:layout_width="match_parent"
@@ -312,7 +320,7 @@
                 android:layout_marginHorizontal="6dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="16dp"
-                android:background="@color/primary_text_color" />
+                android:background="@color/secondary_text_color" />
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@
 
     <dimen name="label_text_size">13sp</dimen>
     <dimen name="value_text_size">16sp</dimen>
+    <dimen name="hourly_text_size">18sp</dimen>
 
     <dimen name="common_marginStartEnd">24dp</dimen>
 
