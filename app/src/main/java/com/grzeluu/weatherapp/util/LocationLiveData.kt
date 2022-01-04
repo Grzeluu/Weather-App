@@ -18,6 +18,7 @@ class LocationLiveData(context:Context): LiveData<LocationModel>() {
     companion object {
         val locationRequest: LocationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            interval = 1000
         }
     }
 
@@ -47,11 +48,7 @@ class LocationLiveData(context:Context): LiveData<LocationModel>() {
     }
 
     private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            for (location in locationResult.locations) {
-                setLocationData(location)
-            }
-        }
+        override fun onLocationResult(locationResult: LocationResult) {}
     }
 
     private fun setLocationData(location: Location) {

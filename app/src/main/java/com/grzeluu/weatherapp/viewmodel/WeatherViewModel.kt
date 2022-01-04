@@ -1,6 +1,7 @@
 package com.grzeluu.weatherapp.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.grzeluu.weatherapp.model.Hourly
 import com.grzeluu.weatherapp.network.ApiConstants

@@ -149,11 +149,11 @@ class MainActivity : AppCompatActivity() {
     private fun getLocationWeather() {
         viewModel.locationData.observe(this, { location ->
             viewModel.getWeather(location.latitude, location.longitude)
+            Log.i("Location", location.toString())
         })
 
         viewModel.weatherData.observe(this,
             { response ->
-                Log.i("Change", "Weather data has changed")
                 when (response) {
                     is MyResult.Success -> {
                         binding.swipeRefreshLayout.isRefreshing = false
@@ -161,14 +161,12 @@ class MainActivity : AppCompatActivity() {
                         hourlyAdapter.submitList(response.data.hourly)
                         binding.rvHourly.adapter = hourlyAdapter
                     }
-
                     is MyResult.Error -> {
                         binding.swipeRefreshLayout.isRefreshing = false
                         response.message?.let { message ->
                             showMessage(message)
                         }
                     }
-
                     is MyResult.Loading -> {}
                 }
             })
