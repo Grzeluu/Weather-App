@@ -2,13 +2,14 @@ package com.grzeluu.weatherapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.grzeluu.weatherapp.model.WeatherResponse
+import com.grzeluu.weatherapp.model.Hourly
 import com.grzeluu.weatherapp.network.ApiConstants
 import com.grzeluu.weatherapp.repository.AppRepository
 import com.grzeluu.weatherapp.util.MyResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.grzeluu.weatherapp.app.MyApplication
+import com.grzeluu.weatherapp.model.WeatherResponse
 
 import com.grzeluu.weatherapp.util.LocationLiveData
 import com.grzeluu.weatherapp.util.Utils

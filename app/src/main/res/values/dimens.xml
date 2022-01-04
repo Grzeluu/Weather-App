@@ -13,7 +13,7 @@
     <dimen name="card_view_content_paddingHorizontal">25dp</dimen>
 
     <dimen name="big_icon_size">50dp</dimen>
-    <dimen name="medium_icon_size">40dp</dimen>
+    <dimen name="medium_icon_size">30dp</dimen>
     <dimen name="id_image_marginEnd">10dp</dimen>
 
     <dimen name="label_text_size">13sp</dimen>
@@ -28,7 +28,7 @@
     <dimen name="big_text_size">70sp</dimen>
     <dimen name="small_icon_size">20dp</dimen>
     <dimen name="pressure_icon_size">15dp</dimen>
-    <dimen name="small_text_size">14sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
 
     <dimen name="toolbar_text_size">22sp</dimen>
     <dimen name="toolbar_icon_size">32dp</dimen>

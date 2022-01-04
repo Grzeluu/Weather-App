@@ -1,6 +1,7 @@
 package com.grzeluu.weatherapp.repository
 
 import android.util.Log
+import com.grzeluu.weatherapp.model.Hourly
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.network.RetrofitInstance
 import com.grzeluu.weatherapp.network.WeatherService

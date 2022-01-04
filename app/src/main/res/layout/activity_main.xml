@@ -168,7 +168,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/card_view_marginStartEnd"
+                android:layout_marginHorizontal="6dp"
                 android:layout_marginTop="@dimen/card_view_marginTop"
                 app:cardCornerRadius="@dimen/card_view_corner_radius">
 
@@ -176,20 +176,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:paddingHorizontal="@dimen/card_view_content_paddingHorizontal"
                     android:paddingVertical="@dimen/card_view_content_paddingVertical">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/card_view_marginStartEnd"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -211,29 +212,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/iv_humidity"
-                                android:layout_width="@dimen/small_icon_size"
-                                android:layout_height="@dimen/small_icon_size"
-                                android:layout_marginEnd="@dimen/id_image_marginEnd"
-                                android:background="@drawable/ic_humidity" />
-
-                            <TextView
-                                android:id="@+id/tv_humidity"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Humidity: 20%"
-                                android:textSize="@dimen/small_text_size" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -257,11 +236,35 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/iv_humidity"
+                                android:layout_width="@dimen/small_icon_size"
+                                android:layout_height="@dimen/small_icon_size"
+                                android:layout_marginEnd="@dimen/id_image_marginEnd"
+                                android:background="@drawable/ic_humidity" />
+
+                            <TextView
+                                android:id="@+id/tv_humidity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Humidity: 20%"
+                                android:textSize="@dimen/small_text_size" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
@@ -284,7 +287,6 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -308,19 +310,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_hourly"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                />
-
-            <View
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginHorizontal="6dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/secondary_text_color" />
+                android:orientation="horizontal" />
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

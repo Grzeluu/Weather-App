@@ -3,7 +3,7 @@ package com.grzeluu.weatherapp.model
 import java.io.Serializable
 
 data class Current(
-    val dt: Int,
+    val dt: Long,
     val sunrise: Long,
     val sunset: Long,
     val temp: Double,

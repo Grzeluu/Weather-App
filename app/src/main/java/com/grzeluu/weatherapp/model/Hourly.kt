@@ -3,7 +3,7 @@ package com.grzeluu.weatherapp.model
 import java.io.Serializable
 
 data class Hourly (
-    val dt: Int,
+    val dt: Long,
     val temp: Double,
     val feels_like: Double,
     val pressure: Int,
