@@ -2,14 +2,10 @@ package com.grzeluu.weatherapp.util
 
 import android.app.Application
 import android.content.Context
-import android.location.LocationManager
-import android.media.Image
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.ImageView
 import com.grzeluu.weatherapp.R
-import com.grzeluu.weatherapp.app.MyApplication
-import com.grzeluu.weatherapp.model.WeatherResponse
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +28,13 @@ object Utils {
     fun unixTime(timestamp: Long): String? {
         val date = Date(timestamp * 1000L)
         val dateFormat = SimpleDateFormat("HH:mm", Locale.UK)
+        dateFormat.timeZone = TimeZone.getDefault()
+        return dateFormat.format(date)
+    }
+
+    fun unixDay(timestamp: Long): String? {
+        val date = Date(timestamp * 1000L)
+        val dateFormat = SimpleDateFormat("EEEE", Locale.UK)
         dateFormat.timeZone = TimeZone.getDefault()
         return dateFormat.format(date)
     }

@@ -15,6 +15,7 @@ import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.repository.AppRepository
+import com.grzeluu.weatherapp.ui.adapters.daily.DailyAdapter
 import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
 import com.grzeluu.weatherapp.util.Constants
 import com.grzeluu.weatherapp.util.MyResult
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: WeatherViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var hourlyAdapter: HourlyAdapter
+    private lateinit var dailyAdapter: DailyAdapter
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         binding.rvHourly.adapter = null
+        binding.rvDaily.adapter = null
     }
 
     private fun init() {
@@ -61,16 +64,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpAdapters() {
         binding.rvHourly.setHasFixedSize(true)
+        binding.rvDaily.setHasFixedSize(true)
 
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        //linearLayoutManager.stackFromEnd = false
-
-        binding.rvHourly.layoutManager = linearLayoutManager
+        val hourlyLinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvHourly.layoutManager = hourlyLinearLayoutManager
         hourlyAdapter = HourlyAdapter()
-
-        // hourlyAdapter.event.observe()
-
         binding.rvHourly.adapter = hourlyAdapter
+
+        val dailyLinearLayoutManager = LinearLayoutManager(this)
+        binding.rvDaily.layoutManager = dailyLinearLayoutManager
+        dailyAdapter = DailyAdapter()
+        binding.rvDaily.adapter = dailyAdapter
+
     }
 
     private fun setUpInterface(weatherResponse: WeatherResponse) {
@@ -158,8 +163,12 @@ class MainActivity : AppCompatActivity() {
                     is MyResult.Success -> {
                         binding.swipeRefreshLayout.isRefreshing = false
                         setUpInterface(response.data!!)
+
                         hourlyAdapter.submitList(response.data.hourly)
                         binding.rvHourly.adapter = hourlyAdapter
+
+                        dailyAdapter.submitList(response.data.daily)
+                        binding.rvDaily.adapter = dailyAdapter
                     }
                     is MyResult.Error -> {
                         binding.swipeRefreshLayout.isRefreshing = false

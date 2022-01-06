@@ -1,7 +1,7 @@
 package com.grzeluu.weatherapp.model
 
 data class Daily(
-    val dt: Int,
+    val dt: Long,
     val sunrise: Long,
     val sunset: Long,
     val moonrise: Long,
