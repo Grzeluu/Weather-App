@@ -1,4 +1,4 @@
-package com.grzeluu.weatherapp.ui.adapters
+package com.grzeluu.weatherapp.ui.adapters.hourly
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,7 @@ class HourlyAdapter(val event: MutableLiveData<HourlyListEvent<Hourly>> = Mutabl
     ListAdapter<Hourly, HourlyAdapter.HourlyViewHolder>(HourlyDiffUtilCallback()) {
 
     class HourlyViewHolder(root: View) : RecyclerView.ViewHolder(root) {
-        val temp: TextView = root.tv_temp
+        val temp: TextView = root.tv_min_temp
         val time: TextView = root.tv_time
         val icon: ImageView = root.iv_weather
     }

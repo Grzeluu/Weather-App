@@ -15,7 +15,7 @@ import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.repository.AppRepository
-import com.grzeluu.weatherapp.ui.adapters.HourlyAdapter
+import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
 import com.grzeluu.weatherapp.util.Constants
 import com.grzeluu.weatherapp.util.MyResult
 import com.grzeluu.weatherapp.util.Utils

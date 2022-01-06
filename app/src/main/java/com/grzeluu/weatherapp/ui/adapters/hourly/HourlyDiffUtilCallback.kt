@@ -1,4 +1,4 @@
-package com.grzeluu.weatherapp.ui.adapters
+package com.grzeluu.weatherapp.ui.adapters.hourly
 
 import androidx.recyclerview.widget.DiffUtil
 import com.grzeluu.weatherapp.model.Hourly

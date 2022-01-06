@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
     <TextView
-        android:id="@+id/tv_temp"
+        android:id="@+id/tv_min_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="24 °C"

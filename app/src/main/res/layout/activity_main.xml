@@ -121,6 +121,7 @@
                         android:layout_height="@dimen/big_icon_size"
                         android:layout_marginStart="@dimen/common_marginStartEnd"
                         android:layout_marginEnd="@dimen/id_image_marginEnd"
+                        android:src="@drawable/ic_partly_cloudy"
                         android:contentDescription="@string/current_weather" />
 
                     <LinearLayout
@@ -316,6 +317,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_daily"
+                android:layout_marginTop="6dp"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
