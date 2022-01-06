@@ -44,7 +44,8 @@ object Utils {
             "02d" -> this.setImageResource(R.drawable.ic_partly_cloudy)
             "02n" -> this.setImageResource(R.drawable.ic_night_partly_cloudy)
 
-            "03d", "04d", "03n", "04n" -> this.setImageResource(R.drawable.ic_cloudy)
+            "03d", "03n" -> this.setImageResource(R.drawable.ic_cloudy)
+            "04d", "04n" -> this.setImageResource(R.drawable.ic_broken_clouds)
             "09d" -> this.setImageResource(R.drawable.ic_partly_rainy)
             "10d", "10n" -> this.setImageResource(R.drawable.ic_rainy)
             "11d", "11n" -> this.setImageResource(R.drawable.ic_thunderstorm)
@@ -53,7 +54,8 @@ object Utils {
         }
     }
 
-    fun getTemperatureUnit(application: Application) = getUnit(application.resources.configuration.toString())
+    fun getTemperatureUnit(application: Application) =
+        getUnit(application.resources.configuration.toString())
 
     private fun getUnit(value: String): String {
         var unit = "°C"
