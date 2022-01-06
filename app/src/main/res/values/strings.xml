@@ -5,9 +5,9 @@
     <string name="current_location">Current location</string>
     <string name="temperature">%1$d%2$s</string>
     <string name="feels_like">Feels like %1$d%2$s</string>
-    <string name="humidity">Humidity: %1$d%%</string>
-    <string name="pressure">Pressure: %1$d hPa</string>
-    <string name="wind">Wind: %1$.1f m/s</string>
+    <string name="percent_of">%1$d%%</string>
+    <string name="pressure">%1$d hPa</string>
+    <string name="wind">%1$.1f m/s</string>
 
     <string name="no_internet_connection">No internet connection</string>
     <string name="network_failure">Network Failure</string>

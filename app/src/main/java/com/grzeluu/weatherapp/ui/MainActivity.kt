@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 )
 
             binding.tvWind.text = getString(R.string.wind, current.wind_speed)
-            binding.tvHumidity.text = getString(R.string.humidity, current.humidity)
+            binding.tvHumidity.text = getString(R.string.percent_of, current.humidity)
             binding.tvPressure.text = getString(R.string.pressure, current.pressure)
 
             binding.tvSunrise.text = Utils.unixTime(current.sunrise)

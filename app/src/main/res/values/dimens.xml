@@ -18,11 +18,10 @@
 
     <dimen name="id_image_marginEnd">4dp</dimen>
 
-    <dimen name="label_text_size">13sp</dimen>
-    <dimen name="value_text_size">16sp</dimen>
-    <dimen name="hourly_text_size">18sp</dimen>
+    <dimen name="label_text_size">13dp</dimen>
+    <dimen name="value_text_size">12dp</dimen>
+    <dimen name="hourly_text_size">18dp</dimen>
     <dimen name="small_icon_size">20dp</dimen>
-    <dimen name="pressure_icon_size">15dp</dimen>
 
     <dimen name="common_marginStartEnd">24dp</dimen>
 
@@ -30,9 +29,9 @@
     <dimen name="divider_margin">26dp</dimen>
 
     <dimen name="big_text_size">74sp</dimen>
-    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="small_text_size">14sp</dimen>
 
-    <dimen name="toolbar_text_size">22sp</dimen>
+    <dimen name="toolbar_text_size">22dp</dimen>
     <dimen name="toolbar_icon_size">32dp</dimen>
 
 </resources>
