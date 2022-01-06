@@ -21,6 +21,7 @@ class HourlyAdapter(val event: MutableLiveData<HourlyListEvent<Hourly>> = Mutabl
         val temp: TextView = root.tv_min_temp
         val time: TextView = root.tv_time
         val icon: ImageView = root.iv_weather
+        val pop: TextView = root.tv_probability_of_precipitation
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyViewHolder {
@@ -33,6 +34,12 @@ class HourlyAdapter(val event: MutableLiveData<HourlyListEvent<Hourly>> = Mutabl
             holder.temp.text = "${hourly.temp.toInt()}°C"
             holder.time.text = Utils.unixTime(hourly.dt)
             holder.icon.setWeatherIcon(hourly.weather[0].icon)
+            if (hourly.pop > 0) {
+                holder.pop.text = "${(hourly.pop * 100).toInt()}%"
+                holder.pop.visibility = View.VISIBLE
+            } else {
+                holder.pop.visibility = View.GONE
+            }
         }
     }
 }

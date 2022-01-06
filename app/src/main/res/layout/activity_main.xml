@@ -76,256 +76,263 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            tools:context=".ui.MainActivity">
-
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/card_view_marginStartEnd"
-                android:layout_marginTop="@dimen/card_view_marginTop"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+                tools:context=".ui.MainActivity">
 
-                <TextView
-                    android:id="@+id/tv_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:text="25°C"
-                    android:textAlignment="textEnd"
-                    android:textSize="@dimen/big_text_size" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/iv_current_weather"
-                        android:layout_width="@dimen/big_icon_size"
-                        android:layout_height="@dimen/big_icon_size"
-                        android:layout_marginStart="@dimen/common_marginStartEnd"
-                        android:layout_marginEnd="@dimen/id_image_marginEnd"
-                        android:src="@drawable/ic_partly_cloudy"
-                        android:contentDescription="@string/current_weather" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_current_weather"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Sunny"
-                            android:textSize="@dimen/value_text_size" />
-
-                        <TextView
-                            android:id="@+id/tv_current_weather_description"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Light air"
-                            android:textSize="@dimen/label_text_size" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/iv_feels_like"
-                    android:layout_width="@dimen/small_icon_size"
-                    android:layout_height="@dimen/small_icon_size"
-                    android:background="@drawable/ic_temperature" />
-
-                <TextView
-                    android:id="@+id/tv_feels_like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feels like 24°C"
-                    android:textSize="@dimen/small_text_size" />
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="6dp"
-                android:layout_marginTop="@dimen/card_view_marginTop"
-                app:cardCornerRadius="@dimen/card_view_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/card_view_marginStartEnd"
+                    android:layout_marginTop="@dimen/card_view_marginTop"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="@dimen/card_view_content_paddingHorizontal"
-                    android:paddingVertical="@dimen/card_view_content_paddingVertical">
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="25°C"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/big_text_size" />
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
+                        <ImageView
+                            android:id="@+id/iv_current_weather"
+                            android:layout_width="@dimen/big_icon_size"
+                            android:layout_height="@dimen/big_icon_size"
+                            android:layout_marginStart="@dimen/common_marginStartEnd"
+                            android:layout_marginEnd="@dimen/id_image_marginEnd"
+                            android:src="@drawable/ic_partly_cloudy"
+                            android:contentDescription="@string/current_weather" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/iv_wind"
-                                android:layout_width="@dimen/small_icon_size"
-                                android:layout_height="@dimen/small_icon_size"
-                                android:layout_marginEnd="@dimen/id_image_marginEnd"
-                                android:background="@drawable/ic_wind" />
+                            android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_wind"
+                                android:id="@+id/tv_current_weather"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Wind: 24 km/h NW"
-                                android:textSize="@dimen/small_text_size" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/im_pressure"
-                                android:layout_width="@dimen/small_icon_size"
-                                android:layout_height="@dimen/small_icon_size"
-                                android:layout_marginEnd="@dimen/id_image_marginEnd"
-                                android:background="@drawable/ic_pressure" />
+                                android:fontFamily="sans-serif-medium"
+                                android:text="Sunny"
+                                android:textSize="@dimen/value_text_size" />
 
                             <TextView
-                                android:id="@+id/tv_pressure"
+                                android:id="@+id/tv_current_weather_description"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pressure: 1000 hPa"
-                                android:textSize="@dimen/small_text_size" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/iv_humidity"
-                                android:layout_width="@dimen/small_icon_size"
-                                android:layout_height="@dimen/small_icon_size"
-                                android:layout_marginEnd="@dimen/id_image_marginEnd"
-                                android:background="@drawable/ic_humidity" />
-
-                            <TextView
-                                android:id="@+id/tv_humidity"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Humidity: 20%"
-                                android:textSize="@dimen/small_text_size" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_marginEnd="20dp"
-                            android:gravity="center"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/iv_sunrise"
-                                android:layout_width="@dimen/small_icon_size"
-                                android:layout_height="@dimen/small_icon_size"
-                                android:layout_marginEnd="@dimen/id_image_marginEnd"
-                                android:background="@drawable/ic_sunrise" />
-
-                            <TextView
-                                android:id="@+id/tv_sunrise"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="6:12"
-                                android:textSize="@dimen/small_text_size" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/iv_sunset"
-                                android:layout_width="@dimen/small_icon_size"
-                                android:layout_height="@dimen/small_icon_size"
-                                android:layout_marginEnd="@dimen/id_image_marginEnd"
-                                android:background="@drawable/ic_sunset" />
-
-                            <TextView
-                                android:id="@+id/tv_sunset"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="20:35"
-                                android:textSize="@dimen/small_text_size" />
-
+                                android:text="Light air"
+                                android:textSize="@dimen/label_text_size" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_hourly"
-                android:layout_marginTop="10dp"
-                android:scrollbars="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_daily"
-                android:layout_marginTop="16dp"
-                android:scrollbars="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                    <ImageView
+                        android:id="@+id/iv_feels_like"
+                        android:layout_width="@dimen/small_icon_size"
+                        android:layout_height="@dimen/small_icon_size"
+                        android:background="@drawable/ic_temperature" />
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_feels_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feels like 24°C"
+                        android:textSize="@dimen/small_text_size" />
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:layout_marginTop="@dimen/card_view_marginTop"
+                    app:cardCornerRadius="@dimen/card_view_corner_radius">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/card_view_content_paddingHorizontal"
+                        android:paddingVertical="@dimen/card_view_content_paddingVertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/iv_wind"
+                                    android:layout_width="@dimen/small_icon_size"
+                                    android:layout_height="@dimen/small_icon_size"
+                                    android:layout_marginEnd="@dimen/id_image_marginEnd"
+                                    android:background="@drawable/ic_wind" />
+
+                                <TextView
+                                    android:id="@+id/tv_wind"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Wind: 24 km/h NW"
+                                    android:textSize="@dimen/small_text_size" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/im_pressure"
+                                    android:layout_width="@dimen/small_icon_size"
+                                    android:layout_height="@dimen/small_icon_size"
+                                    android:layout_marginEnd="@dimen/id_image_marginEnd"
+                                    android:background="@drawable/ic_pressure" />
+
+                                <TextView
+                                    android:id="@+id/tv_pressure"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pressure: 1000 hPa"
+                                    android:textSize="@dimen/small_text_size" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/iv_humidity"
+                                    android:layout_width="@dimen/small_icon_size"
+                                    android:layout_height="@dimen/small_icon_size"
+                                    android:layout_marginEnd="@dimen/id_image_marginEnd"
+                                    android:background="@drawable/ic_humidity" />
+
+                                <TextView
+                                    android:id="@+id/tv_humidity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Humidity: 20%"
+                                    android:textSize="@dimen/small_text_size" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:gravity="center"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/iv_sunrise"
+                                    android:layout_width="@dimen/small_icon_size"
+                                    android:layout_height="@dimen/small_icon_size"
+                                    android:layout_marginEnd="@dimen/id_image_marginEnd"
+                                    android:background="@drawable/ic_sunrise" />
+
+                                <TextView
+                                    android:id="@+id/tv_sunrise"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="6:12"
+                                    android:textSize="@dimen/small_text_size" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/iv_sunset"
+                                    android:layout_width="@dimen/small_icon_size"
+                                    android:layout_height="@dimen/small_icon_size"
+                                    android:layout_marginEnd="@dimen/id_image_marginEnd"
+                                    android:background="@drawable/ic_sunset" />
+
+                                <TextView
+                                    android:id="@+id/tv_sunset"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="20:35"
+                                    android:textSize="@dimen/small_text_size" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_hourly"
+                    android:layout_marginTop="10dp"
+                    android:scrollbars="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_daily"
+                    android:layout_marginTop="10dp"
+                    android:scrollbars="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

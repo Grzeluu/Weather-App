@@ -18,7 +18,7 @@ class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLi
     class DailyViewHolder(root: View) : RecyclerView.ViewHolder(root) {
         val minTemp = root.tv_min_temp
         val maxTemp = root.tv_max_temp
-        val pop = root.tv_probality_of_precipitation
+        val pop = root.tv_probability_of_precipitation
         val icon = root.iv_daily_weather
         val date = root.tv_date
     }
@@ -35,8 +35,12 @@ class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLi
             holder.date.text = Utils.unixDay(daily.dt)
             holder.icon.setWeatherIcon(daily.weather[0].icon)
 
-            if (daily.pop > 0) holder.pop.text = "${(daily.pop * 100).toInt()}%"
-            else holder.pop.visibility = View.INVISIBLE
+            if (daily.pop > 0) {
+                holder.pop.text = "${(daily.pop * 100).toInt()}%"
+                holder.pop.visibility = View.VISIBLE
+            } else {
+                holder.pop.visibility = View.GONE
+            }
         }
     }
 
