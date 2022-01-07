@@ -1,9 +1,7 @@
 package com.grzeluu.weatherapp.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import com.grzeluu.weatherapp.model.Hourly
 import com.grzeluu.weatherapp.network.ApiConstants
 import com.grzeluu.weatherapp.repository.AppRepository
 import com.grzeluu.weatherapp.util.MyResult
@@ -13,7 +11,7 @@ import com.grzeluu.weatherapp.app.MyApplication
 import com.grzeluu.weatherapp.model.WeatherResponse
 
 import com.grzeluu.weatherapp.util.LocationLiveData
-import com.grzeluu.weatherapp.util.Utils
+import com.grzeluu.weatherapp.util.NetworkUtils
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -43,7 +41,7 @@ class WeatherViewModel(
     ) {
         weatherData.postValue(MyResult.Loading())
         try {
-            if (Utils.isNetworkAvailable(getApplication<MyApplication>())) {
+            if (NetworkUtils.isNetworkAvailable(getApplication<MyApplication>())) {
                 val response = appRepository.getWeather(lat, lon, units, appid, exclude)
                 weatherData.postValue(handleWeatherResponse(response))
             } else {

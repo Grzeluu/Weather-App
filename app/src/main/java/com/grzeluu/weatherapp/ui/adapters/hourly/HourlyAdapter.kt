@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.model.Hourly
-import com.grzeluu.weatherapp.util.Utils
-import com.grzeluu.weatherapp.util.Utils.setWeatherIcon
+import com.grzeluu.weatherapp.util.NetworkUtils
+import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
+import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 
 class HourlyAdapter(val event: MutableLiveData<HourlyListEvent<Hourly>> = MutableLiveData()) :
@@ -32,7 +33,7 @@ class HourlyAdapter(val event: MutableLiveData<HourlyListEvent<Hourly>> = Mutabl
     override fun onBindViewHolder(holder: HourlyViewHolder, position: Int) {
         getItem(position).let { hourly ->
             holder.temp.text = "${hourly.temp.toInt()}°C"
-            holder.time.text = Utils.unixTime(hourly.dt)
+            holder.time.text = unixTime(hourly.dt)
             holder.icon.setWeatherIcon(hourly.weather[0].icon)
             if (hourly.pop > 0) {
                 holder.pop.text = "${(hourly.pop * 100).toInt()}%"

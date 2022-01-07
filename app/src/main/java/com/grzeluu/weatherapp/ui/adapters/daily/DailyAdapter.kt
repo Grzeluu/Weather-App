@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.model.Daily
-import com.grzeluu.weatherapp.util.Utils
-import com.grzeluu.weatherapp.util.Utils.setWeatherIcon
+import com.grzeluu.weatherapp.util.DateUtils.Companion.unixDay
+import com.grzeluu.weatherapp.util.NetworkUtils
+import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
 import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 
 class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLiveData()) :
@@ -32,7 +33,7 @@ class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLi
         getItem(position).let { daily ->
             holder.maxTemp.text = "${daily.temp.max.toInt()}°C"
             holder.minTemp.text = "${daily.temp.min.toInt()}°C"
-            holder.date.text = Utils.unixDay(daily.dt)
+            holder.date.text = unixDay(daily.dt)
             holder.icon.setWeatherIcon(daily.weather[0].icon)
 
             if (daily.pop > 0) {

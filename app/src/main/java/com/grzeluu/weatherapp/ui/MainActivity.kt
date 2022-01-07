@@ -19,8 +19,10 @@ import com.grzeluu.weatherapp.ui.adapters.daily.DailyAdapter
 import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
 import com.grzeluu.weatherapp.util.Constants
 import com.grzeluu.weatherapp.util.MyResult
-import com.grzeluu.weatherapp.util.Utils
-import com.grzeluu.weatherapp.util.Utils.setWeatherIcon
+import com.grzeluu.weatherapp.util.NetworkUtils
+import com.grzeluu.weatherapp.util.TemperatureUtils.Companion.getTemperatureUnit
+import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
+import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
 import com.grzeluu.weatherapp.viewmodel.ViewModelProviderFactory
 import com.grzeluu.weatherapp.viewmodel.WeatherViewModel
 
@@ -89,21 +91,21 @@ class MainActivity : AppCompatActivity() {
                 getString(
                     R.string.temperature,
                     current.temp.toInt(),
-                    Utils.getTemperatureUnit(application)
+                    getTemperatureUnit(application)
                 )
             binding.tvFeelsLike.text =
                 getString(
                     R.string.feels_like,
                     current.feels_like.toInt(),
-                    Utils.getTemperatureUnit(application)
+                    getTemperatureUnit(application)
                 )
 
             binding.tvWind.text = getString(R.string.wind, current.wind_speed)
             binding.tvHumidity.text = getString(R.string.percent_of, current.humidity)
             binding.tvPressure.text = getString(R.string.pressure, current.pressure)
 
-            binding.tvSunrise.text = Utils.unixTime(current.sunrise)
-            binding.tvSunset.text = Utils.unixTime(current.sunset)
+            binding.tvSunrise.text = unixTime(current.sunrise)
+            binding.tvSunset.text = unixTime(current.sunset)
 
             binding.ivCurrentWeather.setWeatherIcon(current.weather[i].icon)
         }
