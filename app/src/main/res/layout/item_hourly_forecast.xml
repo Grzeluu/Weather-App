@@ -14,6 +14,7 @@
         android:layout_marginTop="6dp"
         android:includeFontPadding="false"
         android:text="15:00"
+        android:textColor="@color/grey"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

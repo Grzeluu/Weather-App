@@ -81,9 +81,6 @@ class MainActivity : AppCompatActivity() {
     private fun setUpInterface(weatherResponse: WeatherResponse) {
         val current = weatherResponse.current
         for (i in current.weather.indices) {
-
-            binding.tvCurrentWeather.text = current.weather[i].main
-
             var description = current.weather[i].description
             description = description.substring(0, 1).uppercase() + description.substring(1)
             binding.tvCurrentWeatherDescription.text = description
