@@ -18,7 +18,7 @@ class AppRepository {
         appid: String,
         exclude: String
     ): Response<WeatherResponse> {
-        val response =  RetrofitInstance.weatherApi.getWeather(lat, lon, units, appid, exclude)
+        val response =  client.getWeather(lat, lon, units, appid, exclude)
         Log.i("Response", response.body().toString())
         return response
     }

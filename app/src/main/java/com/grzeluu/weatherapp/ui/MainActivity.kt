@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         showProgress()
 
+        val text = resources.openRawResource(R.raw.city_names)
+            .bufferedReader().use { it.readText() }
+
+        Log.i("City List", text)
+
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 

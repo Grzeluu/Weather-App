@@ -1,6 +1,5 @@
 package com.grzeluu.weatherapp.network
 
-import com.grzeluu.weatherapp.model.Hourly
 import com.grzeluu.weatherapp.model.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
