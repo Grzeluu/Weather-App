@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getLocationWeather() {
         viewModel.locationData.observe(this, { location ->
-            viewModel.getWeather(location.latitude, location.longitude)
+            viewModel.getWeather(location.lat, location.lon)
             Log.i("Location", location.toString())
         })
 

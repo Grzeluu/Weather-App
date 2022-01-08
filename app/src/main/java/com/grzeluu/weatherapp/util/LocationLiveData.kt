@@ -10,9 +10,9 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.grzeluu.weatherapp.model.LocationModel
+import com.grzeluu.weatherapp.model.Coord
 
-class LocationLiveData(context:Context): LiveData<LocationModel>() {
+class LocationLiveData(context:Context): LiveData<Coord>() {
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
     companion object {
@@ -53,9 +53,9 @@ class LocationLiveData(context:Context): LiveData<LocationModel>() {
 
     private fun setLocationData(location: Location) {
         Log.i("LocationData", location.toString())
-        value = LocationModel(
-            longitude = location.longitude,
-            latitude = location.latitude
+        value = Coord(
+            lon = location.longitude,
+            lat = location.latitude
         )
     }
 }
