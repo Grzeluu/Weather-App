@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +20,6 @@ import com.grzeluu.weatherapp.ui.adapters.daily.DailyAdapter
 import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
 import com.grzeluu.weatherapp.util.Constants
 import com.grzeluu.weatherapp.util.MyResult
-import com.grzeluu.weatherapp.util.NetworkUtils
 import com.grzeluu.weatherapp.util.TemperatureUtils.Companion.getTemperatureUnit
 import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
 import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
+        showProgress()
 
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
+        binding.srlContainer.setOnRefreshListener {
             viewModel.refreshWeather()
         }
 
@@ -160,7 +162,7 @@ class MainActivity : AppCompatActivity() {
             { response ->
                 when (response) {
                     is MyResult.Success -> {
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        hideProgress()
                         setUpInterface(response.data!!)
 
                         hourlyAdapter.submitList(response.data.hourly)
@@ -170,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                         binding.rvDaily.adapter = dailyAdapter
                     }
                     is MyResult.Error -> {
-                        binding.swipeRefreshLayout.isRefreshing = false
+                        hideProgress()
                         response.message?.let { message ->
                             showMessage(message)
                         }
@@ -183,5 +185,28 @@ class MainActivity : AppCompatActivity() {
     private fun showMessage(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT)
             .show()
+    }
+
+    private fun showProgress(){
+        hideViews()
+        binding.pbLoading.visibility = View.VISIBLE
+        binding.tvLoading.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress(){
+        showViews()
+        binding.pbLoading.visibility = View.GONE
+        binding.tvLoading.visibility = View.GONE
+        binding.srlContainer.isRefreshing = false
+    }
+
+    private fun hideViews(){
+        binding.srlContainer.visibility = View.INVISIBLE
+        binding.appBarLayout.visibility = View.INVISIBLE
+    }
+
+    private fun showViews(){
+        binding.srlContainer.visibility = View.VISIBLE
+        binding.appBarLayout.visibility = View.VISIBLE
     }
 }

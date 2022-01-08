@@ -12,5 +12,6 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="network_failure">Network Failure</string>
     <string name="conversion_error">Conversion Error</string>
+    <string name="loading_your_forecast">Loading your forecast...</string>
 
 </resources>
