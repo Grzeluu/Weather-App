@@ -1,8 +1,5 @@
-package com.grzeluu.weatherapp.network
+package com.grzeluu.weatherapp.source.network
 
-import com.grzeluu.weatherapp.util.Constants
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

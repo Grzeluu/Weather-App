@@ -1,4 +1,4 @@
-package com.grzeluu.weatherapp.network
+package com.grzeluu.weatherapp.source.network
 
 object ApiConstants {
     const val APP_ID: String = "b8d6e447af49f702867767e1324d304e"

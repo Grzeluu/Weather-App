@@ -1,4 +1,4 @@
-package com.grzeluu.weatherapp.network
+package com.grzeluu.weatherapp.source.network
 
 import com.grzeluu.weatherapp.model.WeatherResponse
 import retrofit2.Response
