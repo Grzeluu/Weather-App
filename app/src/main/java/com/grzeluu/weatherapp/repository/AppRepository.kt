@@ -13,7 +13,6 @@ import retrofit2.Response
 class AppRepository(application: Application) {
 
     val client: WeatherService = RetrofitInstance.weatherApi
-    val cityDao: CityDao = CityDatabase.getDatabase(application).CityDao()
 
     suspend fun getWeather(
         lat: Double,
@@ -25,14 +24,5 @@ class AppRepository(application: Application) {
         val response = client.getWeather(lat, lon, units, appid, exclude)
         Log.i("Response", response.body().toString())
         return response
-    }
-
-    suspend fun getNearestCity(
-        lat: Double,
-        lon: Double
-    ): DBCity {
-
-        val city = cityDao.getNearestCity(lat, lon)
-        return city
     }
 }

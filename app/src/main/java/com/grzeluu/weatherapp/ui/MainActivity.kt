@@ -40,11 +40,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         showProgress()
 
-        val text = resources.openRawResource(R.raw.city_names)
-            .bufferedReader().use { it.readText() }
-
-        Log.i("City List", text)
-
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
@@ -151,7 +146,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
-        val repository = AppRepository()
+        val repository = AppRepository(application)
         val factory = ViewModelProviderFactory(application, repository)
         viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
         viewModel.refreshWeather()
