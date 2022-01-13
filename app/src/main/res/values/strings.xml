@@ -14,4 +14,8 @@
     <string name="conversion_error">Conversion Error</string>
     <string name="loading_your_forecast">Loading your forecast...</string>
 
+    <string name="no_precipitation">No precipitation</string>
+    <string name="rain">Rain: %1$.1fmm</string>
+    <string name="snow">Snow: %1$.1fmm</string>
+
 </resources>

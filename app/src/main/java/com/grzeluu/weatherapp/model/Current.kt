@@ -17,6 +17,6 @@ data class Current(
     val wind_speed: Double,
     val wind_deg: Int,
     val weather: List<Weather>,
-    val rain: Rain,
-    val snow: Snow
+    val rain: Rain?,
+    val snow: Snow?
 ): Serializable

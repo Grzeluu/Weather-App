@@ -147,13 +147,22 @@
                         android:textColor="@color/grey"
                         android:text="Feels like 24°C"
                         android:textSize="@dimen/small_text_size" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_precipitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="@string/no_precipitation"
+                    android:textSize="@dimen/small_text_size" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="12dp"
                     app:cardCornerRadius="@dimen/card_view_corner_radius">
 
                     <LinearLayout

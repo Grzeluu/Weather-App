@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
 import com.grzeluu.weatherapp.model.WeatherResponse
-import com.grzeluu.weatherapp.repository.AppRepository
 import com.grzeluu.weatherapp.ui.adapters.daily.DailyAdapter
 import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
 import com.grzeluu.weatherapp.util.Constants
@@ -70,7 +68,8 @@ class MainActivity : AppCompatActivity() {
         binding.rvHourly.setHasFixedSize(true)
         binding.rvDaily.setHasFixedSize(true)
 
-        val hourlyLinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val hourlyLinearLayoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvHourly.layoutManager = hourlyLinearLayoutManager
         hourlyAdapter = HourlyAdapter()
         binding.rvHourly.adapter = hourlyAdapter
@@ -102,6 +101,19 @@ class MainActivity : AppCompatActivity() {
                     getTemperatureUnit(application)
                 )
 
+            binding.tvPrecipitation.text =
+                when {
+                    current.rain != null -> getString(
+                        R.string.rain,
+                        current.rain.hourly,
+                    )
+                    current.snow != null -> getString(
+                        R.string.snow,
+                        current.snow.hourly
+                    )
+                    else -> getString(R.string.no_precipitation)
+                }
+
             binding.tvWind.text = getString(R.string.wind, current.wind_speed)
             binding.tvHumidity.text = getString(R.string.percent_of, current.humidity)
             binding.tvPressure.text = getString(R.string.pressure, current.pressure)
@@ -126,6 +138,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -146,16 +159,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpViewModel() {
-        val repository = AppRepository(application)
-        val factory = ViewModelProviderFactory(application, repository)
+        val factory = ViewModelProviderFactory(application)
         viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
         viewModel.refreshWeather()
     }
 
     private fun getLocationWeather() {
         viewModel.locationData.observe(this, { location ->
-            viewModel.getWeather(location.lat, location.lon)
-            Log.i("Location", location.toString())
+            viewModel.getWeather(location)
         })
 
         viewModel.weatherData.observe(this,
@@ -187,25 +198,25 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun showProgress(){
+    private fun showProgress() {
         hideViews()
         binding.pbLoading.visibility = View.VISIBLE
         binding.tvLoading.visibility = View.VISIBLE
     }
 
-    private fun hideProgress(){
+    private fun hideProgress() {
         showViews()
         binding.pbLoading.visibility = View.GONE
         binding.tvLoading.visibility = View.GONE
         binding.srlContainer.isRefreshing = false
     }
 
-    private fun hideViews(){
+    private fun hideViews() {
         binding.srlContainer.visibility = View.INVISIBLE
         binding.appBarLayout.visibility = View.INVISIBLE
     }
 
-    private fun showViews(){
+    private fun showViews() {
         binding.srlContainer.visibility = View.VISIBLE
         binding.appBarLayout.visibility = View.VISIBLE
     }

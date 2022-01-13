@@ -15,7 +15,7 @@ import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
 import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 
-class HourlyAdapter(val event: MutableLiveData<HourlyListEvent<Hourly>> = MutableLiveData()) :
+class HourlyAdapter :
     ListAdapter<Hourly, HourlyAdapter.HourlyViewHolder>(HourlyDiffUtilCallback()) {
 
     class HourlyViewHolder(root: View) : RecyclerView.ViewHolder(root) {

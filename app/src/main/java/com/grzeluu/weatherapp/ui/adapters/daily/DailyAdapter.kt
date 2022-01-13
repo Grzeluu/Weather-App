@@ -13,8 +13,7 @@ import com.grzeluu.weatherapp.util.NetworkUtils
 import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
 import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 
-class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLiveData()) :
-    ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffUtilCallback()) {
+class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffUtilCallback()) {
 
     class DailyViewHolder(root: View) : RecyclerView.ViewHolder(root) {
         val minTemp = root.tv_min_temp
@@ -22,6 +21,7 @@ class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLi
         val pop = root.tv_probability_of_precipitation
         val icon = root.iv_daily_weather
         val date = root.tv_date
+        val item_view = root.item_daily
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
@@ -41,6 +41,10 @@ class DailyAdapter(val event: MutableLiveData<DailyListEvent<Daily>> = MutableLi
                 holder.pop.visibility = View.VISIBLE
             } else {
                 holder.pop.visibility = View.GONE
+            }
+
+            holder.item_view.setOnClickListener {
+
             }
         }
     }

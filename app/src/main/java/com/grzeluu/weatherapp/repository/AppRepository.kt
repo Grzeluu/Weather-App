@@ -1,18 +1,13 @@
 package com.grzeluu.weatherapp.repository
 
 import android.app.Application
-import android.util.Log
-import com.grzeluu.weatherapp.model.WeatherResponse
-import com.grzeluu.weatherapp.source.local.CityDao
-import com.grzeluu.weatherapp.source.local.CityDatabase
-import com.grzeluu.weatherapp.source.local.DBCity
-import com.grzeluu.weatherapp.source.network.RetrofitInstance
-import com.grzeluu.weatherapp.source.network.WeatherService
-import retrofit2.Response
+import com.grzeluu.weatherapp.source.RetrofitInstance
+import com.grzeluu.weatherapp.source.WeatherService
 
-class AppRepository(application: Application) {
-
-    val client: WeatherService = RetrofitInstance.weatherApi
+class AppRepository(
+    private val application: Application,
+) {
+    private val client: WeatherService = RetrofitInstance.weatherApi
 
     suspend fun getWeather(
         lat: Double,
@@ -20,9 +15,6 @@ class AppRepository(application: Application) {
         units: String,
         appid: String,
         exclude: String
-    ): Response<WeatherResponse> {
-        val response = client.getWeather(lat, lon, units, appid, exclude)
-        Log.i("Response", response.body().toString())
-        return response
-    }
+    ) = client.getWeather(lat, lon, units, appid, exclude)
+
 }
