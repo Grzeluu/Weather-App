@@ -22,6 +22,7 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
         val icon = root.iv_daily_weather
         val date = root.tv_date
         val item_view = root.item_daily
+        val ll_expandable = root.ll_expandable
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
@@ -44,7 +45,7 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
             }
 
             holder.item_view.setOnClickListener {
-
+                holder.ll_expandable.visibility = View.VISIBLE
             }
         }
     }
