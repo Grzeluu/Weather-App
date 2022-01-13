@@ -18,10 +18,9 @@ data class DBCity(
     @ColumnInfo(name = "city_state")
     val state: String,
 
-    @ColumnInfo(name = "city_state")
+    @ColumnInfo(name = "city_country")
     val country: String,
 
     @Embedded
-    @ColumnInfo(name = "city_coord")
     val coord: Coord
 )

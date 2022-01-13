@@ -30,7 +30,7 @@ class WeatherViewModel(
 
     fun getNearestCity(lat: Double, lon: Double) {
         viewModelScope.launch (Dispatchers.IO) {
-            nearestCity.postValue(appRepository.getNearestCity(lat, lon))
+            //nearestCity.postValue(appRepository.getNearestCity(lat, lon))
         }
     }
 
