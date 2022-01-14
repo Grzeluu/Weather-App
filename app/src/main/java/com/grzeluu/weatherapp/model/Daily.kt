@@ -18,7 +18,7 @@ data class Daily(
     val weather: List<Weather>,
     val clouds: Int,
     val pop: Double,
-    val rain: Double,
-    val snow: Double,
+    val rain: Double?,
+    val snow: Double?,
     val uvi: Double
 )

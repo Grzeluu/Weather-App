@@ -5,12 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.model.Hourly
-import com.grzeluu.weatherapp.util.NetworkUtils
 import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
 import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
