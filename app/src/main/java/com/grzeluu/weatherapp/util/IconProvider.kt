@@ -3,7 +3,7 @@ package com.grzeluu.weatherapp.util
 import android.widget.ImageView
 import com.grzeluu.weatherapp.R
 
-class WeatherIconProvider {
+class IconProvider {
     companion object {
         fun ImageView.setWeatherIcon(id: String) {
             when (id) {
@@ -20,6 +20,13 @@ class WeatherIconProvider {
                 "11d", "11n" -> this.setImageResource(R.drawable.ic_thunderstorm)
                 "13d", "13n" -> this.setImageResource(R.drawable.ic_snow)
                 "50d", "50n" -> this.setImageResource(R.drawable.ic_fog)
+            }
+        }
+
+        fun ImageView.setExpandIcon(isExpanded: Boolean) {
+            when (isExpanded) {
+                true -> this.setImageResource(R.drawable.ic_expand_less)
+                false -> this.setImageResource(R.drawable.ic_expand_more)
             }
         }
     }

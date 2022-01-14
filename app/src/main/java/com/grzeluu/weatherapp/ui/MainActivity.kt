@@ -20,7 +20,9 @@ import com.grzeluu.weatherapp.util.Constants
 import com.grzeluu.weatherapp.util.MyResult
 import com.grzeluu.weatherapp.util.TemperatureUtils.Companion.getTemperatureUnit
 import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
-import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
+import com.grzeluu.weatherapp.util.IconProvider.Companion.setWeatherIcon
+import com.grzeluu.weatherapp.util.PrecipitationUtils.Companion.getPrecipitationDescription
+import com.grzeluu.weatherapp.util.TextFormat.Companion.formatDescription
 import com.grzeluu.weatherapp.viewmodel.ViewModelProviderFactory
 import com.grzeluu.weatherapp.viewmodel.WeatherViewModel
 
@@ -83,45 +85,31 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpInterface(weatherResponse: WeatherResponse) {
         val current = weatherResponse.current
-        for (i in current.weather.indices) {
-            var description = current.weather[i].description
-            description = description.substring(0, 1).uppercase() + description.substring(1)
-            binding.tvCurrentWeatherDescription.text = description
 
-            binding.tvTemperature.text =
+        with(binding) {
+            ivCurrentWeather.setWeatherIcon(current.weather[0].icon)
+            tvCurrentWeatherDescription.text =
+                formatDescription(current.weather[0].description)
+            tvTemperature.text =
                 getString(
                     R.string.temperature,
                     current.temp.toInt(),
                     getTemperatureUnit(application)
                 )
-            binding.tvFeelsLike.text =
+            tvFeelsLike.text =
                 getString(
                     R.string.feels_like,
                     current.feels_like.toInt(),
                     getTemperatureUnit(application)
                 )
+            tvPrecipitation.text = getPrecipitationDescription(current, baseContext)
 
-            binding.tvPrecipitation.text =
-                when {
-                    current.rain != null -> getString(
-                        R.string.rain,
-                        current.rain.hourly,
-                    )
-                    current.snow != null -> getString(
-                        R.string.snow,
-                        current.snow.hourly
-                    )
-                    else -> getString(R.string.no_precipitation)
-                }
+            tvWind.text = getString(R.string.wind, current.wind_speed)
+            tvHumidity.text = getString(R.string.percent_of, current.humidity)
+            tvPressure.text = getString(R.string.pressure, current.pressure)
 
-            binding.tvWind.text = getString(R.string.wind, current.wind_speed)
-            binding.tvHumidity.text = getString(R.string.percent_of, current.humidity)
-            binding.tvPressure.text = getString(R.string.pressure, current.pressure)
-
-            binding.tvSunrise.text = unixTime(current.sunrise)
-            binding.tvSunset.text = unixTime(current.sunset)
-
-            binding.ivCurrentWeather.setWeatherIcon(current.weather[i].icon)
+            tvSunrise.text = unixTime(current.sunrise)
+            tvSunset.text = unixTime(current.sunset)
         }
     }
 

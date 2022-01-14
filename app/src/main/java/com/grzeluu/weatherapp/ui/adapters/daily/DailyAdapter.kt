@@ -3,15 +3,19 @@ package com.grzeluu.weatherapp.ui.adapters.daily
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ItemDailyForecastBinding
 import com.grzeluu.weatherapp.model.Daily
 import com.grzeluu.weatherapp.util.DateUtils.Companion.unixDay
-import com.grzeluu.weatherapp.util.ExpandIconProvider.Companion.setExpandIcon
+import com.grzeluu.weatherapp.util.IconProvider.Companion.setExpandIcon
 import com.grzeluu.weatherapp.util.TimeUtils
-import com.grzeluu.weatherapp.util.WeatherIconProvider.Companion.setWeatherIcon
+import com.grzeluu.weatherapp.util.IconProvider.Companion.setWeatherIcon
+import com.grzeluu.weatherapp.util.PrecipitationUtils.Companion.getPrecipitationDescription
+import com.grzeluu.weatherapp.util.TextFormat.Companion.formatDescription
+import com.grzeluu.weatherapp.util.TextViewUtils.Companion.setPoP
 
 class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffUtilCallback()) {
 
@@ -49,7 +53,7 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
                 )
                 tvDate.text = unixDay(daily.dt)
                 ivDailyWeather.setWeatherIcon(daily.weather[0].icon)
-                setPoP(daily.pop)
+                tvProbabilityOfPrecipitation.setPoP(daily.pop)
 
                 ivWeatherExpand.setWeatherIcon(daily.weather[0].icon)
                 tvWind.text = context.getString(
@@ -64,39 +68,11 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
                 tvSunrise.text = TimeUtils.unixTime(daily.sunrise)
                 tvSunset.text = TimeUtils.unixTime(daily.sunset)
 
-                tvDescription.text = formatDescription(daily)
-                tvPrecipitation.text =
-                    when {
-                        daily.rain != null -> context.getString(
-                            R.string.rain,
-                            daily.rain
-                        )
-                        daily.snow != null -> context.getString(
-                            R.string.snow,
-                            daily.snow
-                        )
-                        else -> context.getString(R.string.no_precipitation)
-                    }
+                tvDescription.text = formatDescription(daily.weather[0].description)
+                tvPrecipitation.text = getPrecipitationDescription(daily, context)
 
                 itemDaily.setOnClickListener {
                     binding.changeExpandableVisibility()
-                }
-            }
-        }
-
-        private fun formatDescription(daily: Daily): String {
-            var description = daily.weather[0].description
-            description = description.substring(0, 1).uppercase() + description.substring(1)
-            return description
-        }
-
-        private fun ItemDailyForecastBinding.setPoP(pop: Double) {
-            with(this) {
-                if (pop > 0) {
-                    tvProbabilityOfPrecipitation.text = "${(pop * 100).toInt()}%"
-                    tvProbabilityOfPrecipitation.visibility = View.VISIBLE
-                } else {
-                    tvProbabilityOfPrecipitation.visibility = View.GONE
                 }
             }
         }
