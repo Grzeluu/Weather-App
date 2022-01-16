@@ -52,8 +52,10 @@
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_windy.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.33460656990068754" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/dialog_progress.xml" value="0.37552083333333336" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/hourly_weather_widget.xml" value="0.359375" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/item_daily_forecast.xml" value="0.33" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/layout/item_hourly_forecast.xml" value="0.5" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/xml/widget_provider.xml" value="0.359375" />
       </map>
     </option>
   </component>

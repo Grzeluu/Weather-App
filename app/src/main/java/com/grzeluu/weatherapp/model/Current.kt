@@ -19,4 +19,4 @@ data class Current(
     val weather: List<Weather>,
     val rain: Rain?,
     val snow: Snow?
-): Serializable
+)

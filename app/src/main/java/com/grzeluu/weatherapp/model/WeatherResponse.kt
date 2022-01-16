@@ -1,6 +1,5 @@
 package com.grzeluu.weatherapp.model
 
-import java.io.Serializable
 
 data class WeatherResponse(
     val lat: Double,
@@ -11,4 +10,4 @@ data class WeatherResponse(
     val current: Current,
     val hourly: List<Hourly>,
     val daily: List<Daily>
-): Serializable
+)

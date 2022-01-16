@@ -1,17 +1,12 @@
 package com.grzeluu.weatherapp.util
 
-import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.widget.ImageView
-import com.grzeluu.weatherapp.R
-import java.text.SimpleDateFormat
-import java.util.*
 
 class NetworkUtils {
     companion object {
-        fun isNetworkAvailable(application: Application): Boolean {
+        fun isNetworkAvailable(application: Context): Boolean {
             val connectivityManager =
                 application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

@@ -17,5 +17,7 @@
     <string name="no_precipitation">No precipitation</string>
     <string name="rain">Rain: %1$.1fmm</string>
     <string name="snow">Snow: %1$.1fmm</string>
+    <string name="location_off_error">Please turn on your location service.</string>
+    <string name="location_permission_error">Unable to update location without permission</string>
 
 </resources>

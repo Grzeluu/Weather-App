@@ -6,8 +6,8 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +21,7 @@ import com.grzeluu.weatherapp.util.MyResult
 import com.grzeluu.weatherapp.util.TemperatureUtils.Companion.getTemperatureUnit
 import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
 import com.grzeluu.weatherapp.util.IconProvider.Companion.setWeatherIcon
+import com.grzeluu.weatherapp.util.LocationUtils.Companion.isLocationEnabled
 import com.grzeluu.weatherapp.util.PrecipitationUtils.Companion.getPrecipitationDescription
 import com.grzeluu.weatherapp.util.TextFormat.Companion.formatDescription
 import com.grzeluu.weatherapp.viewmodel.ViewModelProviderFactory
@@ -38,20 +39,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        showProgress()
+        setContentView(binding.root)
 
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        binding.srlContainer.setOnRefreshListener { viewModel.refreshWeather() }
 
+        showProgress()
         init()
-
-        binding.srlContainer.setOnRefreshListener {
-            viewModel.refreshWeather()
-        }
-
-        setContentView(binding.root)
     }
 
     override fun onDestroy() {
@@ -63,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun init() {
         setUpAdapters()
         setUpViewModel()
-        prepWeatherUpdate()
+        prepareWeatherUpdate()
     }
 
     private fun setUpAdapters() {
@@ -80,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         binding.rvDaily.layoutManager = dailyLinearLayoutManager
         dailyAdapter = DailyAdapter()
         binding.rvDaily.adapter = dailyAdapter
-
     }
 
     private fun setUpInterface(weatherResponse: WeatherResponse) {
@@ -110,10 +106,16 @@ class MainActivity : AppCompatActivity() {
 
             tvSunrise.text = unixTime(current.sunrise)
             tvSunset.text = unixTime(current.sunset)
+
+            hourlyAdapter.submitList(weatherResponse.hourly)
+            rvHourly.adapter = hourlyAdapter
+
+            dailyAdapter.submitList(weatherResponse.daily)
+            rvDaily.adapter = dailyAdapter
         }
     }
 
-    private fun prepWeatherUpdate() {
+    private fun prepareWeatherUpdate() {
         if (ContextCompat.checkSelfPermission(
                 baseContext!!,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -121,11 +123,13 @@ class MainActivity : AppCompatActivity() {
         ) {
             val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestPermissions(permissionRequest, Constants.LOCATION_PERMISSION_REQUEST_CODE)
-        } else {
-            getLocationWeather()
+        } else if (!isLocationEnabled(this)){
+            showError(getString(R.string.location_off_error))
+        }
+        else {
+            viewModel.refreshWeather()
         }
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -135,9 +139,9 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             Constants.LOCATION_PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    prepWeatherUpdate()
+                    prepareWeatherUpdate()
                 } else {
-                    showMessage("Unable to update location without permission")
+                    showError(getString(R.string.location_permission_error))
                 }
             }
             else -> {
@@ -149,31 +153,26 @@ class MainActivity : AppCompatActivity() {
     private fun setUpViewModel() {
         val factory = ViewModelProviderFactory(application)
         viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
-        viewModel.refreshWeather()
+        getLocationWeather()
     }
 
     private fun getLocationWeather() {
         viewModel.locationData.observe(this, { location ->
+            Log.i("Location Data", location.toString())
             viewModel.getWeather(location)
         })
 
         viewModel.weatherData.observe(this,
-            { response ->
-                when (response) {
+            { result ->
+                when (result) {
                     is MyResult.Success -> {
                         hideProgress()
-                        setUpInterface(response.data!!)
-
-                        hourlyAdapter.submitList(response.data.hourly)
-                        binding.rvHourly.adapter = hourlyAdapter
-
-                        dailyAdapter.submitList(response.data.daily)
-                        binding.rvDaily.adapter = dailyAdapter
+                        setUpInterface(result.data!!)
                     }
                     is MyResult.Error -> {
                         hideProgress()
-                        response.message?.let { message ->
-                            showMessage(message)
+                        result.message?.let { message ->
+                            showError(message)
                         }
                     }
                     is MyResult.Loading -> {}
@@ -181,21 +180,29 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun showMessage(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT)
-            .show()
+    private fun showError(message: String) {
+        hideViews()
+        binding.pbLoading.visibility = View.GONE
+        binding.tvMessage.text = message
+        binding.tvMessage.visibility = View.VISIBLE
+        binding.ivError.visibility = View.VISIBLE
+    }
+
+    private fun hideError(){
+        binding.tvMessage.visibility = View.GONE
+        binding.ivError.visibility = View.GONE
     }
 
     private fun showProgress() {
         hideViews()
         binding.pbLoading.visibility = View.VISIBLE
-        binding.tvLoading.visibility = View.VISIBLE
+        binding.tvMessage.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {
         showViews()
         binding.pbLoading.visibility = View.GONE
-        binding.tvLoading.visibility = View.GONE
+        binding.tvMessage.visibility = View.GONE
         binding.srlContainer.isRefreshing = false
     }
 

@@ -1,7 +1,5 @@
 package com.grzeluu.weatherapp.model
 
-import java.io.Serializable
-
 data class Hourly (
     val dt: Long,
     val temp: Double,
@@ -19,4 +17,4 @@ data class Hourly (
     val weather: List<Weather>,
     val rain: Rain,
     val snow: Snow
-): Serializable
+)

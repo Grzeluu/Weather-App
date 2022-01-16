@@ -509,22 +509,40 @@
     <ProgressBar
         android:id="@+id/pb_loading"
         android:layout_width="70dp"
+        android:visibility="gone"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/iv_error"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_thunderstorm"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        app:tint="@color/red" />
 
     <TextView
-        android:id="@+id/tv_loading"
+        android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:maxWidth="200dp"
         android:text="@string/loading_your_forecast"
+        android:textAlignment="center"
+        android:textSize="16dp"
         android:visibility="gone"
+        android:maxLines="5"
+        app:layout_constraintBottom_toBottomOf="@+id/srl_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pb_loading" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
