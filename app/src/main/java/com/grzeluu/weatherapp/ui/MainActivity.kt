@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        binding.srlContainer.setOnRefreshListener { viewModel.refreshWeather() }
+        binding.srlContainer.setOnRefreshListener {
+             prepareWeatherUpdate()
+        }
 
         showProgress()
         init()
@@ -123,10 +125,9 @@ class MainActivity : AppCompatActivity() {
         ) {
             val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             requestPermissions(permissionRequest, Constants.LOCATION_PERMISSION_REQUEST_CODE)
-        } else if (!isLocationEnabled(this)){
+        } else if (!isLocationEnabled(this)) {
             showError(getString(R.string.location_off_error))
-        }
-        else {
+        } else {
             viewModel.refreshWeather()
         }
     }
@@ -188,7 +189,7 @@ class MainActivity : AppCompatActivity() {
         binding.ivError.visibility = View.VISIBLE
     }
 
-    private fun hideError(){
+    private fun hideError() {
         binding.tvMessage.visibility = View.GONE
         binding.ivError.visibility = View.GONE
     }
