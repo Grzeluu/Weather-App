@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
+import com.grzeluu.weatherapp.model.CurrentCityResponse
 import com.grzeluu.weatherapp.model.WeatherResponse
 import com.grzeluu.weatherapp.ui.adapters.daily.DailyAdapter
 import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
@@ -81,40 +82,49 @@ class MainActivity : AppCompatActivity() {
         binding.rvDaily.adapter = dailyAdapter
     }
 
-    private fun setUpInterface(weatherResponse: WeatherResponse) {
-        val current = weatherResponse.current
+    private fun setUpInterface(response: Pair<WeatherResponse, CurrentCityResponse>) {
+        val weather = response.first
+        val currentWeather = response.first.current
+        val city = response.second
 
         with(binding) {
-            ivCurrentWeather.setWeatherIcon(current.weather[0].icon)
+            tvCurrentLocation.text = city.name
+
+            ivCurrentWeather.setWeatherIcon(currentWeather.weather[0].icon)
             tvCurrentWeatherDescription.text =
-                formatDescription(current.weather[0].description)
+                formatDescription(currentWeather.weather[0].description)
+
             tvTemperature.text =
                 getString(
                     R.string.temperature,
-                    current.temp.toInt(),
+                    currentWeather.temp.toInt(),
                     getTemperatureUnit(application)
                 )
             tvFeelsLike.text =
                 getString(
                     R.string.feels_like,
-                    current.feels_like.toInt(),
+                    currentWeather.feels_like.toInt(),
                     getTemperatureUnit(application)
                 )
-            tvPrecipitation.text = getPrecipitationDescription(current, baseContext)
 
-            tvWind.text = getString(R.string.wind, current.wind_speed)
-            tvHumidity.text = getString(R.string.percent_of, current.humidity)
-            tvPressure.text = getString(R.string.pressure, current.pressure)
+            tvPrecipitation.text = getPrecipitationDescription(currentWeather, baseContext)
 
-            tvSunrise.text = unixTime(current.sunrise)
-            tvSunset.text = unixTime(current.sunset)
+            tvWind.text = getString(R.string.wind, currentWeather.wind_speed)
+            tvHumidity.text = getString(R.string.percent_of, currentWeather.humidity)
+            tvPressure.text = getString(R.string.pressure, currentWeather.pressure)
+            tvSunrise.text = unixTime(currentWeather.sunrise)
+            tvSunset.text = unixTime(currentWeather.sunset)
 
-            hourlyAdapter.submitList(weatherResponse.hourly)
-            rvHourly.adapter = hourlyAdapter
-
-            dailyAdapter.submitList(weatherResponse.daily)
-            rvDaily.adapter = dailyAdapter
+            setUpRecyclerViews(weather)
         }
+    }
+
+    private fun ActivityMainBinding.setUpRecyclerViews(weather: WeatherResponse) {
+        hourlyAdapter.submitList(weather.hourly)
+        rvHourly.adapter = hourlyAdapter
+
+        dailyAdapter.submitList(weather.daily)
+        rvDaily.adapter = dailyAdapter
     }
 
     private fun prepareWeatherUpdate() {

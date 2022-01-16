@@ -1,5 +1,6 @@
 package com.grzeluu.weatherapp.source
 
+import com.grzeluu.weatherapp.model.CurrentCityResponse
 import com.grzeluu.weatherapp.model.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -21,5 +22,5 @@ interface OpenWeatherService {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("appid") appid: String,
-    ): Response<WeatherResponse>
+    ): Response<CurrentCityResponse>
 }

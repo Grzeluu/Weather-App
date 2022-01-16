@@ -1,7 +1,5 @@
 package com.grzeluu.weatherapp.model
 
-import java.io.Serializable
-
 data class Current(
     val dt: Long,
     val sunrise: Long,
