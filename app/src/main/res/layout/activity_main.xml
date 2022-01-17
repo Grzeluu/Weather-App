@@ -53,15 +53,52 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_location"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_search"
-                android:layout_width="@dimen/toolbar_icon_size"
-                android:layout_height="@dimen/toolbar_icon_size"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_search"
+            <RadioGroup
+                android:id="@+id/rg_units"
+                android:layout_width="76dp"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_switch_thumb"
+                android:checkedButton="@+id/rb_imperial"
+                android:orientation="horizontal"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rb_metric"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_selector"
+                    android:button="@null"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:text="°C"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/selector_text_color" />
+
+                <RadioButton
+                    android:id="@+id/rb_imperial"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="°F"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/selector_text_color" />
+            </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -543,6 +580,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

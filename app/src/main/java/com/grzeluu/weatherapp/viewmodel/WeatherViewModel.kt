@@ -36,8 +36,7 @@ class WeatherViewModel(
         settingsRepository.saveUnitsSettings(units)
     }
 
-    fun refreshWeather() = locationData.locationUpdate()
-
+    fun refreshLocation() = locationData.locationUpdate()
 
     fun getWeather(coord: Coord) = viewModelScope.launch {
         fetchWeather(

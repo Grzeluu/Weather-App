@@ -6,6 +6,7 @@
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/arrow_down_bold_outline.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/bg_item_selector.xml" value="0.32760416666666664" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/bg_white_outline.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/close_box_outline.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_broken_clouds.xml" value="0.2484375" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_clear_sky.xml" value="0.39166666666666666" />
@@ -38,7 +39,10 @@
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_thunderstorm.xml" value="0.28489583333333335" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/ic_wind.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/map_marker_outline.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/selector_text_color.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/sun_wireless_outline.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/switch_thumb.xml" value="0.39166666666666666" />
+        <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/switch_track.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/thermometer_low.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/water_percent.xml" value="0.39166666666666666" />
         <entry key="..\:/Workspace/WeatherApp/app/src/main/res/drawable/weather_cloudy.xml" value="0.39166666666666666" />

@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:state_pressed="true"
-        android:drawable="@color/on_click_grey" />
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/orange_bright" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:drawable="@color/orange_dark" android:state_pressed="true" />
+    <item android:drawable="@color/transparent" />
 </selector>

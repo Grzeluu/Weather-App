@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         } else if (!isLocationEnabled(this)) {
             showError(getString(R.string.location_off_error))
         } else {
-            viewModel.refreshWeather()
+            viewModel.refreshLocation()
         }
     }
 
