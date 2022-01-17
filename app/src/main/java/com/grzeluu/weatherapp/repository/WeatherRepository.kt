@@ -4,8 +4,8 @@ import android.app.Application
 import com.grzeluu.weatherapp.source.RetrofitInstance
 import com.grzeluu.weatherapp.source.OpenWeatherService
 
-class AppRepository(
-    private val application: Application,
+class WeatherRepository(
+    private val application: Application
 ) {
     private val client: OpenWeatherService = RetrofitInstance.weatherApi
 
