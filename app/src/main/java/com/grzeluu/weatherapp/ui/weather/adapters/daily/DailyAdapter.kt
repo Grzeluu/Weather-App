@@ -1,9 +1,8 @@
-package com.grzeluu.weatherapp.ui.adapters.daily
+package com.grzeluu.weatherapp.ui.weather.adapters.daily
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grzeluu.weatherapp.R
@@ -16,6 +15,8 @@ import com.grzeluu.weatherapp.util.IconProvider.Companion.setWeatherIcon
 import com.grzeluu.weatherapp.util.PrecipitationUtils.Companion.getPrecipitationDescription
 import com.grzeluu.weatherapp.util.TextFormat.Companion.formatDescription
 import com.grzeluu.weatherapp.util.TextViewUtils.Companion.setPoP
+import com.grzeluu.weatherapp.util.UnitsUtils.Companion.getSpeedUnits
+import com.grzeluu.weatherapp.util.UnitsUtils.Companion.getTemperatureUnits
 
 class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffUtilCallback()) {
 
@@ -44,12 +45,12 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
                 tvMaxTemp.text = context.getString(
                     R.string.temperature,
                     daily.temp.max.toInt(),
-                    "°C"
+                    getTemperatureUnits(context)
                 )
                 tvMinTemp.text = context.getString(
                     R.string.temperature,
                     daily.temp.min.toInt(),
-                    "°C"
+                    getTemperatureUnits(context)
                 )
                 tvDate.text = unixDay(daily.dt)
                 ivDailyWeather.setWeatherIcon(daily.weather[0].icon)
@@ -58,7 +59,8 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
                 ivWeatherExpand.setWeatherIcon(daily.weather[0].icon)
                 tvWind.text = context.getString(
                     R.string.wind,
-                    daily.wind_speed
+                    daily.wind_speed,
+                    getSpeedUnits(context)
                 )
                 tvPressure.text = context.getString(
                     R.string.pressure,

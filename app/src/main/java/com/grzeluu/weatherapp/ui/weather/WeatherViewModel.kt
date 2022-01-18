@@ -1,21 +1,19 @@
-package com.grzeluu.weatherapp.viewmodel
+package com.grzeluu.weatherapp.ui.weather
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.grzeluu.weatherapp.source.ApiConstants
 import com.grzeluu.weatherapp.repository.WeatherRepository
 import com.grzeluu.weatherapp.util.MyResult
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.grzeluu.weatherapp.app.MyApplication
 import com.grzeluu.weatherapp.model.Coord
 import com.grzeluu.weatherapp.model.CurrentCityResponse
 import com.grzeluu.weatherapp.model.WeatherResponse
-import com.grzeluu.weatherapp.repository.SettingsRepository
+import com.grzeluu.weatherapp.source.ApiConstants.APP_ID
+import com.grzeluu.weatherapp.source.ApiConstants.EXCLUDE
 import com.grzeluu.weatherapp.util.LocationLiveData
 import com.grzeluu.weatherapp.util.NetworkUtils
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -24,27 +22,20 @@ class WeatherViewModel(
 ) : AndroidViewModel(application) {
 
     private val weatherRepository: WeatherRepository = WeatherRepository(application)
-    private val settingsRepository: SettingsRepository = SettingsRepository(application)
 
     val locationData = LocationLiveData(application)
     val weatherData: MutableLiveData<MyResult<Pair<WeatherResponse, CurrentCityResponse>>> =
         MutableLiveData()
 
-    val readUnitSettings = settingsRepository.readUnitsSettings.asLiveData()
-
-    fun saveUnitsSettings(units: String) = viewModelScope.launch(Dispatchers.IO) {
-        settingsRepository.saveUnitsSettings(units)
-    }
-
     fun refreshLocation() = locationData.locationUpdate()
 
-    fun getWeather(coord: Coord) = viewModelScope.launch {
+    fun getWeather(coord: Coord, units: String) = viewModelScope.launch {
         fetchWeather(
             coord.lat,
             coord.lon,
-            ApiConstants.METRIC_UNIT,
-            ApiConstants.APP_ID,
-            ApiConstants.EXCLUDE
+            units,
+            APP_ID,
+            EXCLUDE
         )
     }
 

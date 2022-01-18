@@ -1,4 +1,4 @@
-package com.grzeluu.weatherapp.ui
+package com.grzeluu.weatherapp.ui.weather
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,20 +15,24 @@ import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.databinding.ActivityMainBinding
 import com.grzeluu.weatherapp.model.CurrentCityResponse
 import com.grzeluu.weatherapp.model.WeatherResponse
-import com.grzeluu.weatherapp.ui.adapters.daily.DailyAdapter
-import com.grzeluu.weatherapp.ui.adapters.hourly.HourlyAdapter
+import com.grzeluu.weatherapp.source.ApiConstants.IMPERIAL_UNITS
+import com.grzeluu.weatherapp.source.ApiConstants.METRIC_UNITS
+import com.grzeluu.weatherapp.ui.weather.adapters.daily.DailyAdapter
+import com.grzeluu.weatherapp.ui.weather.adapters.hourly.HourlyAdapter
 import com.grzeluu.weatherapp.util.Constants
 import com.grzeluu.weatherapp.util.MyResult
-import com.grzeluu.weatherapp.util.TemperatureUtils.Companion.getTemperatureUnit
+import com.grzeluu.weatherapp.util.UnitsUtils.Companion.getTemperatureUnits
 import com.grzeluu.weatherapp.util.TimeUtils.Companion.unixTime
 import com.grzeluu.weatherapp.util.IconProvider.Companion.setWeatherIcon
 import com.grzeluu.weatherapp.util.LocationUtils.Companion.isLocationEnabled
 import com.grzeluu.weatherapp.util.PrecipitationUtils.Companion.getPrecipitationDescription
+import com.grzeluu.weatherapp.util.SharedPreferencesUtils.Companion.getUnits
+import com.grzeluu.weatherapp.util.SharedPreferencesUtils.Companion.setUnits
 import com.grzeluu.weatherapp.util.TextFormat.Companion.formatDescription
+import com.grzeluu.weatherapp.util.UnitsUtils.Companion.getSpeedUnits
 import com.grzeluu.weatherapp.viewmodel.ViewModelProviderFactory
-import com.grzeluu.weatherapp.viewmodel.WeatherViewModel
 
-class MainActivity : AppCompatActivity() {
+class WeatherActivity : AppCompatActivity() {
 
     private lateinit var viewModel: WeatherViewModel
     private lateinit var binding: ActivityMainBinding
@@ -47,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         binding.srlContainer.setOnRefreshListener {
-             prepareWeatherUpdate()
+            prepareWeatherUpdate()
         }
 
         showProgress()
@@ -61,25 +65,46 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        initUnitSettings()
         setUpAdapters()
         setUpViewModel()
         prepareWeatherUpdate()
     }
 
+    private fun initUnitSettings() {
+
+        when (getUnits(this)) {
+            METRIC_UNITS -> binding.rbMetric.isChecked = true
+            IMPERIAL_UNITS -> binding.rbImperial.isChecked = true
+        }
+
+        binding.rbMetric.setOnClickListener {
+            setUnits(this, METRIC_UNITS)
+            viewModel.refreshLocation()
+        }
+        binding.rbImperial.setOnClickListener {
+            setUnits(this, IMPERIAL_UNITS)
+            viewModel.refreshLocation()
+        }
+
+    }
+
     private fun setUpAdapters() {
-        binding.rvHourly.setHasFixedSize(true)
-        binding.rvDaily.setHasFixedSize(true)
+        with(binding) {
+            rvHourly.setHasFixedSize(true)
+            rvDaily.setHasFixedSize(true)
 
-        val hourlyLinearLayoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvHourly.layoutManager = hourlyLinearLayoutManager
-        hourlyAdapter = HourlyAdapter()
-        binding.rvHourly.adapter = hourlyAdapter
+            val hourlyLinearLayoutManager =
+                LinearLayoutManager(this@WeatherActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvHourly.layoutManager = hourlyLinearLayoutManager
+            hourlyAdapter = HourlyAdapter()
+            rvHourly.adapter = hourlyAdapter
 
-        val dailyLinearLayoutManager = LinearLayoutManager(this)
-        binding.rvDaily.layoutManager = dailyLinearLayoutManager
-        dailyAdapter = DailyAdapter()
-        binding.rvDaily.adapter = dailyAdapter
+            val dailyLinearLayoutManager = LinearLayoutManager(this@WeatherActivity)
+            rvDaily.layoutManager = dailyLinearLayoutManager
+            dailyAdapter = DailyAdapter()
+            rvDaily.adapter = dailyAdapter
+        }
     }
 
     private fun setUpInterface(response: Pair<WeatherResponse, CurrentCityResponse>) {
@@ -98,18 +123,23 @@ class MainActivity : AppCompatActivity() {
                 getString(
                     R.string.temperature,
                     currentWeather.temp.toInt(),
-                    getTemperatureUnit(application)
+                    getTemperatureUnits(application)
                 )
             tvFeelsLike.text =
                 getString(
                     R.string.feels_like,
                     currentWeather.feels_like.toInt(),
-                    getTemperatureUnit(application)
+                    getTemperatureUnits(this@WeatherActivity)
                 )
 
             tvPrecipitation.text = getPrecipitationDescription(currentWeather, baseContext)
 
-            tvWind.text = getString(R.string.wind, currentWeather.wind_speed)
+            tvWind.text =
+                getString(
+                    R.string.wind,
+                    currentWeather.wind_speed,
+                    getSpeedUnits(this@WeatherActivity)
+                )
             tvHumidity.text = getString(R.string.percent_of, currentWeather.humidity)
             tvPressure.text = getString(R.string.pressure, currentWeather.pressure)
             tvSunrise.text = unixTime(currentWeather.sunrise)
@@ -170,7 +200,7 @@ class MainActivity : AppCompatActivity() {
     private fun getLocationWeather() {
         viewModel.locationData.observe(this, { location ->
             Log.i("Location Data", location.toString())
-            viewModel.getWeather(location)
+            viewModel.getWeather(location, getUnits(this))
         })
 
         viewModel.weatherData.observe(this,
