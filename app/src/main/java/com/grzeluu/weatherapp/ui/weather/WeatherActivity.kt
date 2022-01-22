@@ -139,13 +139,14 @@ class WeatherActivity : AppCompatActivity() {
 
             tvPrecipitation.text = getPrecipitationDescription(currentWeather, baseContext)
 
+            tvHumidity.text = getString(R.string.percent_of, currentWeather.humidity)
+            tvClouds.text = getString(R.string.percent_of, currentWeather.clouds)
             tvWind.text =
                 getString(
                     R.string.wind_value,
                     currentWeather.wind_speed,
                     getSpeedUnits(this@WeatherActivity)
                 )
-            tvHumidity.text = getString(R.string.percent_of, currentWeather.humidity)
             tvPressure.text = getString(R.string.pressure_value, currentWeather.pressure)
             tvSunrise.text = unixTime(currentWeather.sunrise)
             tvSunset.text = unixTime(currentWeather.sunset)
