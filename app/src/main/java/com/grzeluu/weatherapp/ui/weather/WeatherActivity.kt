@@ -47,8 +47,6 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         binding.srlContainer.setOnRefreshListener {
             prepareWeatherUpdate()
@@ -80,15 +78,15 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun initUnitSettings() {
         when (getUnits(this)) {
-            METRIC_UNITS -> binding.rbMetric.isChecked = true
-            IMPERIAL_UNITS -> binding.rbImperial.isChecked = true
+            METRIC_UNITS -> binding.toolbar.rbMetric.isChecked = true
+            IMPERIAL_UNITS -> binding.toolbar.rbImperial.isChecked = true
         }
 
-        binding.rbMetric.setOnClickListener {
+        binding.toolbar.rbMetric.setOnClickListener {
             setUnits(this, METRIC_UNITS)
             viewModel.refreshLocation()
         }
-        binding.rbImperial.setOnClickListener {
+        binding.toolbar.rbImperial.setOnClickListener {
             setUnits(this, IMPERIAL_UNITS)
             viewModel.refreshLocation()
         }
@@ -118,7 +116,7 @@ class WeatherActivity : AppCompatActivity() {
         val city = response.second
 
         with(binding) {
-            tvCurrentLocation.text = city.name
+            toolbar.tvCurrentLocation.text = city.name
 
             ivCurrentWeather.setWeatherIcon(currentWeather.weather[0].icon)
             tvCurrentWeatherDescription.text =
@@ -255,7 +253,7 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun hideViews() {
         binding.srlContainer.visibility = View.INVISIBLE
-        binding.appBarLayout.visibility = View.INVISIBLE
+        binding.toolbar.container.visibility = View.INVISIBLE
         binding.tvMessage.visibility = View.INVISIBLE
         binding.ivError.visibility = View.INVISIBLE
         binding.btRefresh.visibility = View.INVISIBLE
@@ -263,6 +261,6 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun showViews() {
         binding.srlContainer.visibility = View.VISIBLE
-        binding.appBarLayout.visibility = View.VISIBLE
+        binding.toolbar.container.visibility = View.VISIBLE
     }
 }

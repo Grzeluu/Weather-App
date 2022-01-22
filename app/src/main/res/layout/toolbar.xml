@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp"
+    android:background="@color/orange"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/iv_location"
+        style="@style/toolbar_icon_style"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/location"
+        android:src="@drawable/ic_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_current_location"
+        style="@style/toolbar_text_style"
+        android:layout_marginStart="5dp"
+        android:text="@string/current_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_location"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rg_units"
+        style="@style/radio_group_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_metric"
+            style="@style/radio_button_style"
+            android:text="@string/metric_units" />
+
+        <RadioButton
+            android:id="@+id/rb_imperial"
+            style="@style/radio_button_style"
+            android:text="@string/imperial_units" />
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

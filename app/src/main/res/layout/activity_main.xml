@@ -6,68 +6,7 @@
     android:layout_height="match_parent"
     tools:ignore="RtlSymmetry">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/toolbar_style"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:title=""
-                app:titleTextColor="@color/white" />
-
-            <ImageView
-                android:contentDescription="@string/location"
-                android:id="@+id/iv_location"
-                style="@style/toolbar_icon_style"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_location"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_current_location"
-                style="@style/toolbar_text_style"
-                android:layout_marginStart="5dp"
-                android:text="@string/current_location"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_location"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RadioGroup
-                android:id="@+id/rg_units"
-                style="@style/radio_group_style"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <RadioButton
-                    android:id="@+id/rb_metric"
-                    style="@style/radio_button_style"
-                    android:text="@string/metric_units" />
-
-                <RadioButton
-                    android:id="@+id/rb_imperial"
-                    style="@style/radio_button_style"
-                    android:text="@string/imperial_units" />
-
-            </RadioGroup>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl_container"
@@ -76,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="wrap_content"
@@ -129,11 +68,11 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
-                        android:contentDescription="@string/temperature"
                         android:id="@+id/iv_feels_like"
                         android:layout_width="@dimen/small_icon_size"
                         android:layout_height="@dimen/small_icon_size"
-                        android:background="@drawable/ic_temperature" />
+                        android:background="@drawable/ic_temperature"
+                        android:contentDescription="@string/temperature" />
 
                     <TextView
                         android:id="@+id/tv_feels_like"
@@ -465,31 +404,31 @@
         android:id="@+id/iv_error"
         style="@style/big_icon_style"
         android:layout_marginBottom="0dp"
+        android:contentDescription="@string/error"
         android:src="@drawable/ic_thunderstorm"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tv_message"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/red"
-        android:contentDescription="@string/error" />
+        app:tint="@color/red" />
 
     <TextView
         android:id="@+id/tv_message"
+        style="@style/error_text_style"
         android:layout_marginTop="20dp"
         android:text="@string/loading_your_forecast"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/srl_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/error_text_style" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/bt_refresh"
+        style="@style/common_button_Style"
         android:layout_marginTop="16dp"
         android:text="@string/refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_message"
-        style="@style/common_button_Style" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_message" />
 </androidx.constraintlayout.widget.ConstraintLayout>
