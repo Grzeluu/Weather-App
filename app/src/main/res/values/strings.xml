@@ -1,18 +1,18 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Weather App</string>
     <string name="please_wait">Please wait</string>
     <string name="current_weather">Current weather</string>
     <string name="current_location">Current location</string>
-    <string name="temperature">%1$d%2$s</string>
+    <string name="temperature_value">%1$d%2$s</string>
     <string name="feels_like">Feels like %1$d%2$s</string>
     <string name="percent_of">%1$d%%</string>
-    <string name="pressure">%1$d hPa</string>
-    <string name="wind">%1$.1f %2$s</string>
+    <string name="pressure_value">%1$d hPa</string>
+    <string name="wind_value">%1$.1f %2$s</string>
 
     <string name="no_internet_connection">No internet connection</string>
     <string name="network_failure">Network Failure</string>
     <string name="conversion_error">Conversion Error</string>
-    <string name="loading_your_forecast">Loading your forecast...</string>
+    <string name="loading_your_forecast" tools:ignore="TypographyEllipsis">Loading your forecast...</string>
 
     <string name="no_precipitation">No precipitation</string>
     <string name="rain">Rain: %1$.1fmm</string>
@@ -21,5 +21,16 @@
     <string name="location_permission_error">Unable to update location without permission</string>
     <string name="network_error">Network unavailable.</string>
     <string name="refresh">Refresh</string>
+    <string name="imperial_units">°F</string>
+    <string name="metric_units">°C</string>
+    <string name="humidity">Humidity</string>
+    <string name="clouds">Clouds</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="error">Error</string>
+    <string name="temperature">Temperature</string>
+    <string name="location">Location</string>
 
 </resources>

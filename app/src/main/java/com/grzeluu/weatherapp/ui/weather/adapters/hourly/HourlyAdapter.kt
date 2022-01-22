@@ -3,8 +3,6 @@ package com.grzeluu.weatherapp.ui.weather.adapters.hourly
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grzeluu.weatherapp.R
@@ -41,7 +39,7 @@ class HourlyAdapter :
         fun bind(hourly: Hourly) {
             with(binding) {
                 tvTemp.text = context.getString(
-                    R.string.temperature,
+                    R.string.temperature_value,
                     hourly.temp.toInt(),
                     UnitsUtils.getTemperatureUnits(context)
                 )

@@ -43,12 +43,12 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
         fun bind(daily: Daily) {
             with(binding) {
                 tvMaxTemp.text = context.getString(
-                    R.string.temperature,
+                    R.string.temperature_value,
                     daily.temp.max.toInt(),
                     getTemperatureUnits(context)
                 )
                 tvMinTemp.text = context.getString(
-                    R.string.temperature,
+                    R.string.temperature_value,
                     daily.temp.min.toInt(),
                     getTemperatureUnits(context)
                 )
@@ -58,12 +58,12 @@ class DailyAdapter : ListAdapter<Daily, DailyAdapter.DailyViewHolder>(DailyDiffU
 
                 ivWeatherExpand.setWeatherIcon(daily.weather[0].icon)
                 tvWind.text = context.getString(
-                    R.string.wind,
+                    R.string.wind_value,
                     daily.wind_speed,
                     getSpeedUnits(context)
                 )
                 tvPressure.text = context.getString(
-                    R.string.pressure,
+                    R.string.pressure_value,
                     daily.pressure
                 )
 
