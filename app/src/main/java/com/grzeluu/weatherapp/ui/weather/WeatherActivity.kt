@@ -46,7 +46,7 @@ class WeatherActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
@@ -66,13 +66,19 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun init() {
         initUnitSettings()
+        initButtons()
         setUpAdapters()
         setUpViewModel()
         prepareWeatherUpdate()
     }
 
-    private fun initUnitSettings() {
+    private fun initButtons() {
+        binding.btRefresh.setOnClickListener{
+            prepareWeatherUpdate()
+        }
+    }
 
+    private fun initUnitSettings() {
         when (getUnits(this)) {
             METRIC_UNITS -> binding.rbMetric.isChecked = true
             IMPERIAL_UNITS -> binding.rbImperial.isChecked = true
@@ -86,7 +92,6 @@ class WeatherActivity : AppCompatActivity() {
             setUnits(this, IMPERIAL_UNITS)
             viewModel.refreshLocation()
         }
-
     }
 
     private fun setUpAdapters() {
@@ -172,6 +177,39 @@ class WeatherActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUpViewModel() {
+        val factory = ViewModelProviderFactory(application)
+        viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
+        getLocationWeather()
+    }
+
+    private fun getLocationWeather() {
+        viewModel.locationData.observe(this, { location ->
+            Log.i("Location Data", location.toString())
+            viewModel.getWeather(location, getUnits(this))
+        })
+
+        viewModel.weatherData.observe(this,
+            { result ->
+                when (result) {
+                    is MyResult.Success -> {
+                        setUpInterface(result.data!!)
+                        hideProgress()
+                    }
+                    is MyResult.Error -> {
+                        result.message?.let { message ->
+                            showError(message)
+                        }
+                    }
+                    is MyResult.Loading -> {
+                        if (!binding.srlContainer.isRefreshing) {
+                            showProgress()
+                        }
+                    }
+                }
+            })
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -191,65 +229,35 @@ class WeatherActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpViewModel() {
-        val factory = ViewModelProviderFactory(application)
-        viewModel = ViewModelProvider(this, factory).get(WeatherViewModel::class.java)
-        getLocationWeather()
-    }
-
-    private fun getLocationWeather() {
-        viewModel.locationData.observe(this, { location ->
-            Log.i("Location Data", location.toString())
-            viewModel.getWeather(location, getUnits(this))
-        })
-
-        viewModel.weatherData.observe(this,
-            { result ->
-                when (result) {
-                    is MyResult.Success -> {
-                        hideProgress()
-                        setUpInterface(result.data!!)
-                    }
-                    is MyResult.Error -> {
-                        hideProgress()
-                        result.message?.let { message ->
-                            showError(message)
-                        }
-                    }
-                    is MyResult.Loading -> {}
-                }
-            })
-    }
-
     private fun showError(message: String) {
+        hideProgress()
         hideViews()
-        binding.pbLoading.visibility = View.GONE
         binding.tvMessage.text = message
         binding.tvMessage.visibility = View.VISIBLE
         binding.ivError.visibility = View.VISIBLE
-    }
-
-    private fun hideError() {
-        binding.tvMessage.visibility = View.GONE
-        binding.ivError.visibility = View.GONE
+        binding.btRefresh.visibility = View.VISIBLE
     }
 
     private fun showProgress() {
         hideViews()
+        binding.tvMessage.text = getString(R.string.loading_your_forecast)
         binding.pbLoading.visibility = View.VISIBLE
         binding.tvMessage.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {
         showViews()
-        binding.pbLoading.visibility = View.GONE
-        binding.tvMessage.visibility = View.GONE
+        binding.pbLoading.visibility = View.INVISIBLE
+        binding.tvMessage.visibility = View.INVISIBLE
         binding.srlContainer.isRefreshing = false
     }
 
     private fun hideViews() {
         binding.srlContainer.visibility = View.INVISIBLE
         binding.appBarLayout.visibility = View.INVISIBLE
+        binding.tvMessage.visibility = View.INVISIBLE
+        binding.ivError.visibility = View.INVISIBLE
+        binding.btRefresh.visibility = View.INVISIBLE
     }
 
     private fun showViews() {

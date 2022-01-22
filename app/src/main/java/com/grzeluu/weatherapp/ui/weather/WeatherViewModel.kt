@@ -6,7 +6,7 @@ import com.grzeluu.weatherapp.repository.WeatherRepository
 import com.grzeluu.weatherapp.util.MyResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.grzeluu.weatherapp.app.MyApplication
+import com.grzeluu.weatherapp.R
 import com.grzeluu.weatherapp.model.Coord
 import com.grzeluu.weatherapp.model.CurrentCityResponse
 import com.grzeluu.weatherapp.model.WeatherResponse
@@ -48,12 +48,12 @@ class WeatherViewModel(
     ) {
         weatherData.postValue(MyResult.Loading())
         try {
-            if (NetworkUtils.isNetworkAvailable(getApplication<MyApplication>())) {
+            if (NetworkUtils.isNetworkAvailable(getApplication<Application>())) {
                 val weatherResponse = weatherRepository.getWeather(lat, lon, units, appid, exclude)
                 val cityResponse = weatherRepository.getCurrentCity(lat, lon, appid)
                 weatherData.postValue(handlePairResponse(weatherResponse, cityResponse))
             } else {
-                weatherData.postValue(MyResult.Error("Network unavailable"))
+                weatherData.postValue(MyResult.Error(getApplication<Application>().getString(R.string.network_error)))
             }
         } catch (t: Throwable) {
             weatherData.postValue(MyResult.Error(t.message.toString()))

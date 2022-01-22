@@ -561,7 +561,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_thunderstorm"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="0dp"
         android:visibility="gone"
         app:tint="@color/red" />
 
@@ -569,8 +569,8 @@
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="16dp"
         android:text="@string/loading_your_forecast"
         android:textAlignment="center"
         android:textSize="16dp"
@@ -580,4 +580,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_message" />
 </androidx.constraintlayout.widget.ConstraintLayout>
