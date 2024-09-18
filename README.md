@@ -27,4 +27,4 @@ The architecture of the app is based on the MVVM pattern with the repository and
 
 
 ## Instalation
-Plant Care app requires a minimum API level of 23.
+Weather app requires a minimum API level of 23.
