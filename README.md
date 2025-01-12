@@ -6,7 +6,7 @@ The application was implemented using MVVM architectural pattern with ViewModel 
 retrofit2 for working with REST API and Location Requests to get the current location of the user. 
 
 ## Status
-The application is fully functioning and can be installed on the devices.
+API has expired
 
 ## Features
 * Show current weather for the user's location. 
